@@ -137,6 +137,13 @@ function Registration() {
             setShowError(true);
             break;
 
+          case 304:
+            error_message.title = "Username or email used";
+            error_message.message =
+              "Please enter another username or email.If you already registered with this email please use another one.";
+            setShowError(true);
+            break;
+
           default:
             error_message.title = "Something went wrong.";
             error_message.message = "Something went wrong, please try again.";
