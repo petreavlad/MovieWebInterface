@@ -1,0 +1,25 @@
+.text_input_area {
+  background-color: rgba(82, 37, 70, 0.4);
+  color: white;
+  width: 100%;
+  height: 4vh;
+  outline: 0vh;
+  border: none;
+  border-color: transparent;
+  resize: none;
+  text-align: center;
+  font-size: 3vh;
+  padding-top: 0.5vh;
+  resize: none;
+  white-space: nowrap;
+  overflow-x: hidden;
+  border-radius: 2vh;
+}
+
+.text_input_area::placeholder {
+  color: rgba(223, 211, 220, 0.8);
+}
+
+.text_input_area:focus::placeholder {
+  color: rgba(223, 211, 220, 0);
+}

@@ -1,0 +1,52 @@
+.content_holder_registration {
+  background-color: #e23e57;
+  position: absolute;
+  width: 56vh;
+  height: 80vh;
+  border-radius: 3vh;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.circle_holder_registration {
+  cursor: pointer;
+  width: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  margin-top: 2vh;
+  background-color: #88304e;
+  margin-left: 18.5vh;
+  border-radius: 10vh;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.user_image_registration {
+  width: 17vh;
+  height: 17vh;
+  border-radius: 20vh;
+  cursor: pointer;
+}
+
+.photo_file_manager_registration {
+  height: 0px;
+  width: 0px;
+}
+
+.agree_textbox_text {
+  width: 45vh;
+  margin-left: 2vh;
+  margin-top: 2vh;
+  font-size: 2vh;
+  color: #522546;
+  text-align: right;
+}
+
+.agree_holder {
+  display: flex;
+}
+
+.button_holder_registration {
+  display: block;
+  text-align: center;
+}
