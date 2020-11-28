@@ -1,0 +1,28 @@
+.nav_bar_holder {
+  background-color: #e23e57;
+  width: 100%;
+  height: 9vh;
+  display: flex;
+}
+
+.menu_icon {
+  height: 4vh;
+  width: 4.5vh;
+  margin-left: 3vh;
+  margin-top: 2.5vh;
+}
+
+.filter_icon {
+  height: 4vh;
+  width: 4vh;
+  margin-left: 55vh;
+  margin-top: 2.6vh;
+}
+
+.user_round_image {
+  height: 7vh;
+  width: 7vh;
+  margin-top: 0.7vh;
+  margin-left: 55vh;
+  border-radius: 10vh;
+}

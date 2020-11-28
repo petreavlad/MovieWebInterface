@@ -82,6 +82,7 @@ function EditText(props) {
         style={{
           paddingTop: props.padding_top,
           height: props.height,
+          width: props.width,
         }}
         placeholder={props.placeholder}
         className="text_input_area"

@@ -24,7 +24,13 @@ function MainPage() {
       url: "https://movie-test-app-2223.herokuapp.com/user/login",
       data: state,
     })
-      .then(() => {
+      .then((response) => {
+        localStorage.setItem("user_token", response.data.response.token);
+        localStorage.setItem("user_username", response.data.response.username);
+        localStorage.setItem("user_image", response.data.response.user_image);
+
+        console.log(response.data.response);
+        history.push("/home");
       })
       .catch((error) => {
         setErrorVisibility(true);

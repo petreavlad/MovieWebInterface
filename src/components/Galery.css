@@ -1,0 +1,22 @@
+.scrollable_view {
+  display: flex;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  border-radius: 30px;
+  position: absolute;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+#dots_holder {
+  width: auto;
+  height: auto;
+  position: absolute;
+}
+
+#dot_stile {
+  float: left;
+  cursor: pointer;
+}
