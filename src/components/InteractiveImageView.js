@@ -1,8 +1,20 @@
-import React from "react";
-import "./TopNavBar.css";
+import React, { useEffect, useState } from "react";
+import "./InteractiveImageView.css";
 
-function EditText() {
-  return <div className="image"></div>;
+function InteractiveImageView(props) {
+  const [shownPhoto, setShownPhoto] = useState("");
+
+  useEffect(() => {
+    setShownPhoto(props.defaultPhoto);
+  }, []);
+
+  return (
+    <img
+      id="interactive_image_holder"
+      src={shownPhoto}
+      style={{ width: props.width, height: props.height }}
+    ></img>
+  );
 }
 
-export default EditText;
+export default InteractiveImageView;

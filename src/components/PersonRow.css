@@ -1,3 +1,33 @@
+#person_holder {
+  float: left;
+}
+
+#person_holder:hover {
+  transform: scale(1.15);
+}
+
 #person_row_holder {
-  background-color: violet;
+  display: flex;
+  justify-content: center;
+}
+
+#person_name {
+  color: #ffffff;
+  align-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: default;
+  text-overflow: ellipsis;
+}
+
+#x_button_person_stripe {
+  float: right;
+  margin-left: 110px;
+  position: absolute;
+  display: block;
+  z-index: 3;
+}
+
+#x_button_person_stripe:hover {
+  transform: scale(1.3);
 }
