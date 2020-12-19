@@ -2,16 +2,23 @@ import React from "react";
 import "../pages/home.css";
 import TopNavBar from "../components/TopNavBar";
 import Galery from "../components/Galery";
+import EditableCollection from "../components/EditableCollection";
 import GalleryDetails from "../components/GalleryDetail";
-import { useEffect, useRef } from "react";
+import ItemEditableDetails from "../components/ItemEditableDetails";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
+var selectedItemData;
+
 function HomePage() {
+  const [pageNumber, setPageNumber] = useState(0);
   var galleryRef = useRef();
   var galleryContent;
 
   useEffect(() => {
-    retrieveGalleryData(localStorage.getItem("user_token"));
+    if (pageNumber === 0) {
+      retrieveGalleryData(localStorage.getItem("user_token"));
+    }
   }, []);
 
   function retrieveGalleryData(token) {
@@ -28,18 +35,28 @@ function HomePage() {
       }
 
       galleryRef.current.addElements(imageArray);
-
-      setTimeout(startGalleryTimer, 1000);
+      if (pageNumber === 0) setTimeout(startGalleryTimer, 1000);
     });
   }
 
   function startGalleryTimer() {
-    galleryRef.current.startScrolling(2000);
+    if (galleryRef && galleryRef.current)
+      galleryRef.current.startScrolling(2000);
   }
 
-  return (
-    <div>
-      <TopNavBar></TopNavBar>
+  function onNavClicked(key) {
+    if (key === "MENU_KEY") {
+      setPageNumber(1);
+    }
+  }
+
+  function onCollectionItemClicked(item) {
+    selectedItemData = item;
+    setPageNumber(2);
+  }
+
+  function getHomePage() {
+    return (
       <div>
         <Galery
           ref={galleryRef}
@@ -58,9 +75,52 @@ function HomePage() {
           width="800px"
           marginTop="100px"
           marginRight="100px"
-          backgroundColor="#117A65"
+          backgroundColor="#E23E57"
         ></GalleryDetails>
       </div>
+    );
+  }
+
+  function getAddElements() {
+    return (
+      <EditableCollection
+        maxItemsPerRow="6"
+        width="200px"
+        height="363px"
+        inBetweenMargin="30px"
+        rowMrginTop="50px"
+        rowMarginLeft="25px"
+        borderWidth="10"
+        borderColor="#E23E57"
+        cardRadius="30px"
+        showPlusCard={true}
+        onItemClicked={onCollectionItemClicked}
+      ></EditableCollection>
+    );
+  }
+
+  function getEditableDetailPage() {
+    return (
+      <ItemEditableDetails itemDetails={selectedItemData}></ItemEditableDetails>
+    );
+  }
+
+  function getPage() {
+    switch (pageNumber) {
+      case 1:
+        return getAddElements();
+      case 2:
+        return getEditableDetailPage();
+      default:
+      case 0:
+        return getHomePage();
+    }
+  }
+
+  return (
+    <div>
+      <TopNavBar onClick={onNavClicked}></TopNavBar>
+      <div>{getPage()}</div>
     </div>
   );
 }

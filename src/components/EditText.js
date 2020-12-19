@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./EditText.css";
 
 function EditText(props) {
@@ -9,6 +9,10 @@ function EditText(props) {
     selection_start: 0,
     selection_end: 0,
   };
+
+  useEffect(() => {
+    if (props.text) setActualText(props.text);
+  }, []);
 
   function onNewText(event) {
     if (event.nativeEvent.inputType === "insertLineBreak") {
@@ -83,6 +87,9 @@ function EditText(props) {
           paddingTop: props.padding_top,
           height: props.height,
           width: props.width,
+          whiteSpace: props.whiteSpace ? props.whiteSpace : "nowrap",
+          resize: props.resize ? props.resize : "none",
+          textAlign: props.textAlign ? props.textAlign : "center",
         }}
         placeholder={props.placeholder}
         className="text_input_area"
@@ -90,7 +97,9 @@ function EditText(props) {
         spellCheck="false"
         onChange={onNewText}
         onSelect={onSelect}
-      ></textarea>
+      >
+        {}
+      </textarea>
     </div>
   );
 }

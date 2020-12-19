@@ -6,14 +6,12 @@
   outline: 0vh;
   border: none;
   border-color: transparent;
-  resize: none;
   text-align: center;
   font-size: 3vh;
   padding-top: 0.5vh;
-  resize: none;
-  white-space: nowrap;
   overflow-x: hidden;
   border-radius: 2vh;
+  padding-left: 20px;
 }
 
 .text_input_area::placeholder {

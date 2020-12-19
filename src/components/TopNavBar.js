@@ -2,11 +2,18 @@ import React from "react";
 import "./TopNavBar.css";
 import EditText from "../components/EditText";
 
-function TopNavBar() {
+function TopNavBar(props) {
+  function onItemClick() {
+    if (props.onClick) {
+      props.onClick("MENU_KEY");
+    }
+  }
+
   return (
     <div className="nav_bar_holder">
       <img
         className="menu_icon"
+        onClick={onItemClick}
         src="https://res.cloudinary.com/dodwfb1ar/image/upload/v1605190472/utils/menu_icon_e6qdx4.png"
       ></img>
       <img

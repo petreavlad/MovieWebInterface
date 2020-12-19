@@ -1,0 +1,12 @@
+#cardHolder {
+  overflow: hidden;
+  float: left;
+}
+
+#rowHolder {
+  width: 100%;
+}
+
+#cardHolder:hover {
+  transform: scale(1.15);
+}
