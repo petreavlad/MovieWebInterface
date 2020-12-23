@@ -39,12 +39,14 @@
   width: 35%;
   height: auto;
   margin-top: 10px;
+  cursor: pointer;
 }
 #portrait_image {
   border-radius: 30px;
   margin-top: 10px;
   width: 15%;
   height: auto;
+  cursor: pointer;
   margin-bottom: 10px;
 }
 

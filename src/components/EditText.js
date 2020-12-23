@@ -1,14 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import "./EditText.css";
 
-function EditText(props) {
+function EditText(props, ref) {
   const [actual_text, setActualText] = useState("");
   const [hidden_text, setHiddenText] = useState("");
+
+  useImperativeHandle(ref, () => ({ setText }));
 
   var selection = {
     selection_start: 0,
     selection_end: 0,
   };
+
+  function setText(text) {
+    setActualText(text);
+  }
 
   useEffect(() => {
     if (props.text) setActualText(props.text);
@@ -104,4 +115,4 @@ function EditText(props) {
   );
 }
 
-export default EditText;
+export default forwardRef(EditText);

@@ -1,14 +1,73 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import EditText from "./EditText";
 import PersonRow from "../components/PersonRow";
 import "./ItemEditableDetails.css";
 import axios from "axios";
 
 function ItemEditableDetails(props) {
-  var starRowRef = useRef();
-  var creatorRowRef = useRef();
+  const [content, setContent] = useState({});
 
-  useEffect(() => {}, []);
+  var photo_type = "";
+  var pageReferences = {
+    starRowRef: useRef(),
+    creatorRowRef: useRef(),
+    inputFileRef: useRef(),
+    titleEditText: useRef(),
+    yearEditText: useRef(),
+    ratingEditText: useRef(),
+    decriptionEditText: useRef(),
+    genresEditText: useRef(),
+    youtubeEditText: useRef(),
+  };
+
+  useEffect(() => {
+    if (props.itemDetails) {
+      pageReferences.titleEditText.current.setText(props.itemDetails.title);
+      pageReferences.yearEditText.current.setText(props.itemDetails.year);
+      pageReferences.ratingEditText.current.setText(props.itemDetails.rating);
+      pageReferences.decriptionEditText.current.setText(
+        props.itemDetails.description
+      );
+      pageReferences.genresEditText.current.setText(props.itemDetails.genres);
+      pageReferences.youtubeEditText.current.setText(
+        props.itemDetails.youtube_link
+      );
+      setContent(props.itemDetails);
+    }
+  }, []);
+
+  function onPhotoChosen(event) {
+    if (event.target.files[0]) {
+      var file = event.target.files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (response) => {
+        setContent(
+          getNewContentItems(file, response.target.result, photo_type)
+        );
+      };
+    }
+  }
+
+  function getNewContentItems(file, result, photo_type) {
+    return {
+      title: content.title,
+      description: content.description,
+      year: content.year,
+      rating: content.rating,
+      youtube_link: content.youtube_link,
+      stars: content.stars,
+      creators: content.creators,
+      portrait_cover_image:
+        photo_type === "portrait_image" ? result : content.portrait_cover_image,
+      portrait_cover_image_file:
+        photo_type === "portrait_image" ? file : undefined,
+      wide_cover_image:
+        photo_type === "wide_image" ? result : content.wide_cover_image,
+      wide_cover_image_file: photo_type === "wide_image" ? file : undefined,
+    };
+  }
 
   function onStarClicked(person) {
     if (person == "ADD_CARD") {
@@ -20,15 +79,15 @@ function ItemEditableDetails(props) {
       .delete("https://movie-test-app-2223.herokuapp.com/content/star", {
         params: {
           person_id: person.person_id,
-          content_id: props.itemDetails.content_id,
+          content_id: content.content_id,
         },
         headers: {
           token: localStorage.getItem("user_token"),
         },
       })
       .then((response) => {
-        if (starRowRef) {
-          starRowRef.current.deleteItem(person.person_id);
+        if (pageReferences.starRowRef) {
+          pageReferences.starRowRef.current.deleteItem(person.person_id);
         }
       })
       .catch((err) => {
@@ -41,20 +100,69 @@ function ItemEditableDetails(props) {
       .delete("https://movie-test-app-2223.herokuapp.com/content/creator", {
         params: {
           person_id: person.person_id,
-          content_id: props.itemDetails.content_id,
+          content_id: content.content_id,
         },
         headers: {
           token: localStorage.getItem("user_token"),
         },
       })
       .then((response) => {
-        if (creatorRowRef) {
-          creatorRowRef.current.deleteItem(person.person_id);
+        if (pageReferences.creatorRowRef) {
+          pageReferences.creatorRowRef.current.deleteItem(person.person_id);
         }
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  function updateContentItem() {
+    var bodyFormData = new FormData();
+    bodyFormData.append("genres", content.genres);
+    bodyFormData.append("title", content.title);
+    bodyFormData.append("description", content.description);
+    bodyFormData.append("rating", content.rating);
+    bodyFormData.append("year", content.year);
+    bodyFormData.append("youtube_link", content.youtube_link);
+    bodyFormData.append(
+      "portrait_cover_image",
+      content.portrait_cover_image_file
+    );
+    bodyFormData.append("wide_cover_image", content.wide_cover_image_file);
+    if (props.itemDetails && props.itemDetails.content_id) {
+      axios({
+        method: "post",
+        url: "https://movie-test-app-2223.herokuapp.com/content/update",
+        data: bodyFormData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("user_token"),
+        },
+        params: { content_id: props.itemDetails.content_id },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      axios({
+        method: "post",
+        url: "https://movie-test-app-2223.herokuapp.com/content/add",
+        data: bodyFormData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: localStorage.getItem("user_token"),
+        },
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   return (
@@ -64,28 +172,62 @@ function ItemEditableDetails(props) {
         margin_top="1vh"
         margin_right="2.5vh"
         padding_top="2vh"
+        resetEditText="true"
         height="4vh"
         width="100vh"
         margin_left="2vh"
-        text={props.itemDetails.title ? props.itemDetails.title : ""}
+        ref={pageReferences.titleEditText}
+        text={content.title ? content.title : ""}
+        onChange={(text) => {
+          let item = content;
+          item.title = text;
+          setContent(item);
+        }}
         placeholder="Title"
       ></EditText>
       <div id="portrait_image_title">Portrait Poster Image:</div>
       <img
         id="portrait_image"
-        src={props.itemDetails.portrait_cover_image}
+        onClick={(event) => {
+          photo_type = "portrait_image";
+          pageReferences.inputFileRef.current.click();
+        }}
+        data-key={"portrait_image"}
+        src={
+          content.portrait_cover_image
+            ? content.portrait_cover_image
+            : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1608481487/utils/Group_36_1_ppwgei.png"
+        }
       ></img>
       <div id="wide_image_title">Wide Poster Image:</div>
-      <img id="wide_image" src={props.itemDetails.wide_cover_image}></img>
+      <img
+        id="wide_image"
+        onClick={(event) => {
+          photo_type = "wide_image";
+          pageReferences.inputFileRef.current.click();
+        }}
+        src={
+          content.wide_cover_image
+            ? content.wide_cover_image
+            : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1608481259/utils/Group_36_o1ypmn.png"
+        }
+      ></img>
       <EditText
         id="title_container"
         margin_top="1vh"
         margin_right="2.5vh"
         padding_top="2vh"
+        resetEditText="true"
         height="4vh"
         width="100vh"
+        ref={pageReferences.yearEditText}
         margin_left="2vh"
-        text={props.itemDetails.year ? props.itemDetails.year : ""}
+        onChange={(text) => {
+          let item = content;
+          item.year = text;
+          setContent(item);
+        }}
+        text={content.year ? content.year : ""}
         placeholder="Year"
       ></EditText>
       <EditText
@@ -93,16 +235,24 @@ function ItemEditableDetails(props) {
         margin_top="1vh"
         margin_right="2.5vh"
         padding_top="2vh"
+        resetEditText="true"
         height="4vh"
         width="100vh"
         margin_left="2vh"
-        text={props.itemDetails.rating ? props.itemDetails.rating : ""}
+        ref={pageReferences.ratingEditText}
+        text={content.rating ? content.rating : ""}
+        onChange={(text) => {
+          let item = content;
+          item.rating = text;
+          setContent(item);
+        }}
         placeholder="Rating"
       ></EditText>
       <EditText
         id="title_container"
         margin_top="1vh"
         margin_right="2.5vh"
+        resetEditText="true"
         padding_top="2vh"
         height="300px"
         width="100vh"
@@ -110,9 +260,13 @@ function ItemEditableDetails(props) {
         whiteSpace="none"
         resize="vertical"
         textAlign="start"
-        text={
-          props.itemDetails.description ? props.itemDetails.description : ""
-        }
+        ref={pageReferences.decriptionEditText}
+        text={content.description ? content.description : ""}
+        onChange={(text) => {
+          let item = content;
+          item.description = text;
+          setContent(item);
+        }}
         placeholder="Description"
       ></EditText>
       <EditText
@@ -120,36 +274,51 @@ function ItemEditableDetails(props) {
         margin_top="1vh"
         margin_right="2.5vh"
         padding_top="2vh"
+        resetEditText="true"
         height="4vh"
         width="100vh"
         margin_left="2vh"
         textAlign="start"
+        ref={pageReferences.genresEditText}
         text={
-          props.itemDetails.genres.toString()
-            ? props.itemDetails.genres.toString()
+          content.genres && content.genres.toString()
+            ? content.genres.toString()
             : ""
         }
+        onChange={(text) => {
+          let item = content;
+          item.genres = text.split(",");
+          setContent(item);
+        }}
         placeholder="Genres"
       ></EditText>
       <iframe
         width="507"
         height="300"
-        src={props.itemDetails.youtube_link}
+        src={content.youtube_link}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        style={{
+          background: "#88304E",
+        }}
       ></iframe>
       <EditText
         id="title_container"
         margin_top="1vh"
         margin_right="2.5vh"
+        resetEditText="true"
         padding_top="2vh"
         height="4vh"
         width="100vh"
         margin_left="2vh"
         textAlign="start"
-        text={
-          props.itemDetails.youtube_link ? props.itemDetails.youtube_link : ""
-        }
+        ref={pageReferences.youtubeEditText}
+        text={content.youtube_link ? content.youtube_link : ""}
+        onChange={(text) => {
+          let item = content;
+          item.youtube_link = text;
+          setContent(item);
+        }}
         placeholder="Youtube Embeded Link"
       ></EditText>
 
@@ -161,15 +330,16 @@ function ItemEditableDetails(props) {
         marginInBetween="50px"
         marginTop="20px"
         marginLeft="auto"
+        resetEditText="true"
         marginRight="auto"
         addIconImage="https://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
         xButtonDimmension="25px"
         addIconText="Add Star"
         xMarginStart="110px"
         onItemClicked={onStarClicked}
-        ref={starRowRef}
+        ref={pageReferences.starRowRef}
         onxClick={onxClickedStars}
-        personArray={props.itemDetails.stars}
+        personArray={props.itemDetails ? props.itemDetails.stars : []}
       ></PersonRow>
       <div
         id="person_stripe_title"
@@ -185,6 +355,7 @@ function ItemEditableDetails(props) {
         personCardDimension="150px"
         marginInBetween="50px"
         marginTop="20px"
+        resetEditText="true"
         marginLeft="auto"
         marginRight="auto"
         xButtonDimmension="25px"
@@ -192,12 +363,27 @@ function ItemEditableDetails(props) {
         addIconText="Add Creator"
         addIconImage="https://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
         xMarginStart="110px"
-        ref={creatorRowRef}
-        personArray={props.itemDetails.creators}
+        ref={pageReferences.creatorRowRef}
+        personArray={props.itemDetails ? props.itemDetails.creators : []}
       ></PersonRow>
       <div id="class_button_holder">
-        <button id="update_button_style">Update</button>
+        <button
+          id="update_button_style"
+          onClick={() => {
+            updateContentItem();
+          }}
+        >
+          Update
+        </button>
       </div>
+      <input
+        className="photo_file_manager_registration"
+        type="file"
+        accept="image/x-png,image/jpg,image/jpeg"
+        ref={pageReferences.inputFileRef}
+        onChange={onPhotoChosen}
+        style={{ visibility: "hidden" }}
+      />
     </div>
   );
 }
