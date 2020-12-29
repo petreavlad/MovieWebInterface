@@ -70,7 +70,7 @@ function PersonRow(props, ref) {
         id="person_holder"
         style={{
           width: props.personCardDimension,
-          marginRight: props.marginInBetween,
+          marginRight: isLast ? "0px" : props.marginInBetween,
         }}
         data-key={index}
         key={"person_holder_" + index}

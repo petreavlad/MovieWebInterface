@@ -57,6 +57,7 @@ function ItemEditableDetails(props) {
       year: content.year,
       rating: content.rating,
       youtube_link: content.youtube_link,
+      genres: content.genres,
       stars: content.stars,
       creators: content.creators,
       portrait_cover_image:
@@ -169,224 +170,226 @@ function ItemEditableDetails(props) {
   }
 
   return (
-    <div className="detail_holder">
-      <EditText
-        id="title_container"
-        margin_top="1vh"
-        margin_right="2.5vh"
-        padding_top="2vh"
-        resetEditText="true"
-        height="4vh"
-        width="100vh"
-        margin_left="2vh"
-        ref={pageReferences.titleEditText}
-        text={content.title ? content.title : ""}
-        onChange={(text) => {
-          let item = content;
-          item.title = text;
-          setContent(item);
-        }}
-        placeholder="Title"
-      ></EditText>
-      <div id="portrait_image_title">Portrait Poster Image:</div>
-      <img
-        id="portrait_image"
-        onClick={(event) => {
-          photo_type = "portrait_image";
-          pageReferences.inputFileRef.current.click();
-        }}
-        data-key={"portrait_image"}
-        src={
-          content.portrait_cover_image
-            ? content.portrait_cover_image
-            : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1608481487/utils/Group_36_1_ppwgei.png"
-        }
-      ></img>
-      <div id="wide_image_title">Wide Poster Image:</div>
-      <img
-        id="wide_image"
-        onClick={(event) => {
-          photo_type = "wide_image";
-          pageReferences.inputFileRef.current.click();
-        }}
-        src={
-          content.wide_cover_image
-            ? content.wide_cover_image
-            : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1608481259/utils/Group_36_o1ypmn.png"
-        }
-      ></img>
-      <EditText
-        id="title_container"
-        margin_top="1vh"
-        margin_right="2.5vh"
-        padding_top="2vh"
-        resetEditText="true"
-        height="4vh"
-        width="100vh"
-        ref={pageReferences.yearEditText}
-        margin_left="2vh"
-        onChange={(text) => {
-          let item = content;
-          item.year = text;
-          setContent(item);
-        }}
-        text={content.year ? content.year : ""}
-        placeholder="Year"
-      ></EditText>
-      <EditText
-        id="title_container"
-        margin_top="1vh"
-        margin_right="2.5vh"
-        padding_top="2vh"
-        resetEditText="true"
-        height="4vh"
-        width="100vh"
-        margin_left="2vh"
-        ref={pageReferences.ratingEditText}
-        text={content.rating ? content.rating : ""}
-        onChange={(text) => {
-          let item = content;
-          item.rating = text;
-          setContent(item);
-        }}
-        placeholder="Rating"
-      ></EditText>
-      <EditText
-        id="title_container"
-        margin_top="1vh"
-        margin_right="2.5vh"
-        resetEditText="true"
-        padding_top="2vh"
-        height="300px"
-        width="100vh"
-        margin_left="2vh"
-        whiteSpace="none"
-        resize="vertical"
-        textAlign="start"
-        ref={pageReferences.decriptionEditText}
-        text={content.description ? content.description : ""}
-        onChange={(text) => {
-          let item = content;
-          item.description = text;
-          setContent(item);
-        }}
-        placeholder="Description"
-      ></EditText>
-      <EditText
-        id="title_container"
-        margin_top="1vh"
-        margin_right="2.5vh"
-        padding_top="2vh"
-        resetEditText="true"
-        height="4vh"
-        width="100vh"
-        margin_left="2vh"
-        textAlign="start"
-        ref={pageReferences.genresEditText}
-        text={
-          content.genres && content.genres.toString()
-            ? content.genres.toString()
-            : ""
-        }
-        onChange={(text) => {
-          let item = content;
-          item.genres = text.split(",");
-          setContent(item);
-        }}
-        placeholder="Genres"
-      ></EditText>
-      <iframe
-        width="507"
-        height="300"
-        src={content.youtube_link}
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        style={{
-          background: "#88304E",
-        }}
-      ></iframe>
-      <EditText
-        id="title_container"
-        margin_top="1vh"
-        margin_right="2.5vh"
-        resetEditText="true"
-        padding_top="2vh"
-        height="4vh"
-        width="100vh"
-        margin_left="2vh"
-        textAlign="start"
-        ref={pageReferences.youtubeEditText}
-        text={content.youtube_link ? content.youtube_link : ""}
-        onChange={(text) => {
-          let item = content;
-          item.youtube_link = text;
-          setContent(item);
-        }}
-        placeholder="Youtube Embeded Link"
-      ></EditText>
+    <div>
+      <div className="detail_holder">
+        <EditText
+          id="title_container"
+          margin_top="1vh"
+          margin_right="2.5vh"
+          padding_top="2vh"
+          resetEditText="true"
+          height="4vh"
+          width="100vh"
+          margin_left="2vh"
+          ref={pageReferences.titleEditText}
+          text={content.title ? content.title : ""}
+          onChange={(text) => {
+            let item = content;
+            item.title = text;
+            setContent(item);
+          }}
+          placeholder="Title"
+        ></EditText>
+        <div id="portrait_image_title">Portrait Poster Image:</div>
+        <img
+          id="portrait_image"
+          onClick={(event) => {
+            photo_type = "portrait_image";
+            pageReferences.inputFileRef.current.click();
+          }}
+          data-key={"portrait_image"}
+          src={
+            content.portrait_cover_image
+              ? content.portrait_cover_image
+              : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1608481487/utils/Group_36_1_ppwgei.png"
+          }
+        ></img>
+        <div id="wide_image_title">Wide Poster Image:</div>
+        <img
+          id="wide_image"
+          onClick={(event) => {
+            photo_type = "wide_image";
+            pageReferences.inputFileRef.current.click();
+          }}
+          src={
+            content.wide_cover_image
+              ? content.wide_cover_image
+              : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1608481259/utils/Group_36_o1ypmn.png"
+          }
+        ></img>
+        <EditText
+          id="title_container"
+          margin_top="1vh"
+          margin_right="2.5vh"
+          padding_top="2vh"
+          resetEditText="true"
+          height="4vh"
+          width="100vh"
+          ref={pageReferences.yearEditText}
+          margin_left="2vh"
+          onChange={(text) => {
+            let item = content;
+            item.year = text;
+            setContent(item);
+          }}
+          text={content.year ? content.year : ""}
+          placeholder="Year"
+        ></EditText>
+        <EditText
+          id="title_container"
+          margin_top="1vh"
+          margin_right="2.5vh"
+          padding_top="2vh"
+          resetEditText="true"
+          height="4vh"
+          width="100vh"
+          margin_left="2vh"
+          ref={pageReferences.ratingEditText}
+          text={content.rating ? content.rating : ""}
+          onChange={(text) => {
+            let item = content;
+            item.rating = text;
+            setContent(item);
+          }}
+          placeholder="Rating"
+        ></EditText>
+        <EditText
+          id="title_container"
+          margin_top="1vh"
+          margin_right="2.5vh"
+          resetEditText="true"
+          padding_top="2vh"
+          height="300px"
+          width="100vh"
+          margin_left="2vh"
+          whiteSpace="none"
+          resize="vertical"
+          textAlign="start"
+          ref={pageReferences.decriptionEditText}
+          text={content.description ? content.description : ""}
+          onChange={(text) => {
+            let item = content;
+            item.description = text;
+            setContent(item);
+          }}
+          placeholder="Description"
+        ></EditText>
+        <EditText
+          id="title_container"
+          margin_top="1vh"
+          margin_right="2.5vh"
+          padding_top="2vh"
+          resetEditText="true"
+          height="4vh"
+          width="100vh"
+          margin_left="2vh"
+          textAlign="start"
+          ref={pageReferences.genresEditText}
+          text={
+            content.genres && content.genres.toString()
+              ? content.genres.toString()
+              : ""
+          }
+          onChange={(text) => {
+            let item = content;
+            item.genres = text.split(",");
+            setContent(item);
+          }}
+          placeholder="Genres"
+        ></EditText>
+        <iframe
+          width="507"
+          height="300"
+          src={content.youtube_link}
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          style={{
+            background: "#88304E",
+          }}
+        ></iframe>
+        <EditText
+          id="title_container"
+          margin_top="1vh"
+          margin_right="2.5vh"
+          resetEditText="true"
+          padding_top="2vh"
+          height="4vh"
+          width="100vh"
+          margin_left="2vh"
+          textAlign="start"
+          ref={pageReferences.youtubeEditText}
+          text={content.youtube_link ? content.youtube_link : ""}
+          onChange={(text) => {
+            let item = content;
+            item.youtube_link = text;
+            setContent(item);
+          }}
+          placeholder="Youtube Embeded Link"
+        ></EditText>
 
-      <div id="person_stripe_title">Stars:</div>
-      <PersonRow
-        height="150px"
-        width="100%"
-        personCardDimension="150px"
-        marginInBetween="50px"
-        marginTop="20px"
-        marginLeft="auto"
-        resetEditText="true"
-        marginRight="auto"
-        addIconImage="https://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
-        xButtonDimmension="25px"
-        addIconText="Add Star"
-        xMarginStart="110px"
-        onItemClicked={onStarClicked}
-        ref={pageReferences.starRowRef}
-        onxClick={onxClickedStars}
-        personArray={props.itemDetails ? props.itemDetails.stars : []}
-      ></PersonRow>
-      <div
-        id="person_stripe_title"
-        style={{
-          marginTop: "40px",
-        }}
-      >
-        Creators:
-      </div>
-      <PersonRow
-        height="150px"
-        width="100%"
-        personCardDimension="150px"
-        marginInBetween="50px"
-        marginTop="20px"
-        resetEditText="true"
-        marginLeft="auto"
-        marginRight="auto"
-        xButtonDimmension="25px"
-        onxClick={onxClickedCreators}
-        addIconText="Add Creator"
-        addIconImage="https://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
-        xMarginStart="110px"
-        ref={pageReferences.creatorRowRef}
-        personArray={props.itemDetails ? props.itemDetails.creators : []}
-      ></PersonRow>
-      <div id="class_button_holder">
-        <button
-          id="update_button_style"
-          onClick={() => {
-            updateContentItem();
+        <div id="person_stripe_title">Stars:</div>
+        <PersonRow
+          height="150px"
+          width="100%"
+          personCardDimension="150px"
+          marginInBetween="50px"
+          marginTop="20px"
+          marginLeft="auto"
+          resetEditText="true"
+          marginRight="auto"
+          addIconImage="https://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
+          xButtonDimmension="25px"
+          addIconText="Add Star"
+          xMarginStart="110px"
+          onItemClicked={onStarClicked}
+          ref={pageReferences.starRowRef}
+          onxClick={onxClickedStars}
+          personArray={props.itemDetails ? props.itemDetails.stars : []}
+        ></PersonRow>
+        <div
+          id="person_stripe_title"
+          style={{
+            marginTop: "40px",
           }}
         >
-          {props.itemDetails ? "Update" : "Add new content"}
-        </button>
+          Creators:
+        </div>
+        <PersonRow
+          height="150px"
+          width="100%"
+          personCardDimension="150px"
+          marginInBetween="50px"
+          marginTop="20px"
+          resetEditText="true"
+          marginLeft="auto"
+          marginRight="auto"
+          xButtonDimmension="25px"
+          onxClick={onxClickedCreators}
+          addIconText="Add Creator"
+          addIconImage="https://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
+          xMarginStart="110px"
+          ref={pageReferences.creatorRowRef}
+          personArray={props.itemDetails ? props.itemDetails.creators : []}
+        ></PersonRow>
+        <div>
+          <button
+            id="update_button_style"
+            onClick={() => {
+              updateContentItem();
+            }}
+          >
+            {props.itemDetails ? "Update" : "Add new content"}
+          </button>
+        </div>
+        <input
+          className="photo_file_manager_registration"
+          type="file"
+          accept="image/x-png,image/jpg,image/jpeg"
+          ref={pageReferences.inputFileRef}
+          onChange={onPhotoChosen}
+          style={{ visibility: "hidden" }}
+        />
       </div>
-      <input
-        className="photo_file_manager_registration"
-        type="file"
-        accept="image/x-png,image/jpg,image/jpeg"
-        ref={pageReferences.inputFileRef}
-        onChange={onPhotoChosen}
-        style={{ visibility: "hidden" }}
-      />
     </div>
   );
 }

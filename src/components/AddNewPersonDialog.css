@@ -1,0 +1,20 @@
+#person_dialog_background {
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background-color: #000000b6;
+  display: flex;
+  visibility: hidden;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+}
+
+#person_dialog_image {
+  margin-top: 1.5vh;
+}
+
+#person_dialog_holder {
+  background-color: #e23e57;
+  text-align: center;
+}

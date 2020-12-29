@@ -91,6 +91,7 @@ function EditText(props, ref) {
         marginLeft: props.margin_left,
         marginRight: props.margin_right,
         marginTop: props.margin_top,
+        marginBottom: props.margin_bottom,
       }}
     >
       <textarea

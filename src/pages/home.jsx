@@ -7,6 +7,7 @@ import GalleryDetails from "../components/GalleryDetail";
 import ItemEditableDetails from "../components/ItemEditableDetails";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import AddNewPersonDialog from "../components/AddNewPersonDialog";
 
 var selectedItemData;
 
@@ -124,6 +125,7 @@ function HomePage() {
 
   return (
     <div>
+      <AddNewPersonDialog></AddNewPersonDialog>
       <TopNavBar onMenuItemClicked={onNavClicked}></TopNavBar>
       <div>{getPage()}</div>
     </div>
