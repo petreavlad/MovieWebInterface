@@ -19,7 +19,7 @@ function HomePage() {
     if (pageNumber === 0) {
       retrieveGalleryData(localStorage.getItem("user_token"));
     }
-  }, []);
+  }, [pageNumber]);
 
   function retrieveGalleryData(token) {
     axios({
@@ -45,8 +45,13 @@ function HomePage() {
   }
 
   function onNavClicked(key) {
-    if (key === "MENU_KEY") {
-      setPageNumber(1);
+    switch (key) {
+      case "HOME_MENU_KEY":
+        setPageNumber(0);
+        break;
+      case "ADMIN_MENU_PAGE":
+        setPageNumber(1);
+        break;
     }
   }
 
@@ -119,7 +124,7 @@ function HomePage() {
 
   return (
     <div>
-      <TopNavBar onClick={onNavClicked}></TopNavBar>
+      <TopNavBar onMenuItemClicked={onNavClicked}></TopNavBar>
       <div>{getPage()}</div>
     </div>
   );

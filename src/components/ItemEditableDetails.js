@@ -373,7 +373,7 @@ function ItemEditableDetails(props) {
             updateContentItem();
           }}
         >
-          Update
+          {props.itemDetails ? "Update" : "Add new content"}
         </button>
       </div>
       <input

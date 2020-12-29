@@ -5,11 +5,26 @@
   display: flex;
 }
 
-.menu_icon {
+#menu_icon {
   height: 4vh;
   width: 4.5vh;
   margin-left: 3vh;
-  margin-top: 2.5vh;
+  margin-top: 1.5vh;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-right: 1vh;
+  padding-left: 1vh;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  content: url("https://res.cloudinary.com/dodwfb1ar/image/upload/v1605190472/utils/menu_icon_e6qdx4.png");
+}
+
+#menu_icon:active {
+  content: url("https://res.cloudinary.com/dodwfb1ar/image/upload/v1609268510/utils/menu_icon_e6qdx4_a8albv.png");
+}
+
+#menu_icon:hover {
+  background-color: #88304e;
 }
 
 .filter_icon {
@@ -25,4 +40,47 @@
   margin-top: 0.7vh;
   margin-left: 55vh;
   border-radius: 10vh;
+}
+
+#menu_dropdown {
+  width: auto;
+  height: auto;
+  margin-left: 3vh;
+  margin-top: 1vh;
+  z-index: 3;
+  position: absolute;
+}
+
+#menu_item_image {
+  width: 3vh;
+  height: 3vh;
+  display: flex;
+  margin-top: 0.5vh;
+  margin-left: 3vh;
+  float: left;
+}
+
+#menu_item_text {
+  font-size: 3vh;
+  color: white;
+  margin-left: 8vh;
+  cursor: default;
+  text-align: center;
+  margin-right: 2vh;
+}
+
+#menu_item_holder {
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  background-color: #e23e57;
+}
+
+#menu_item_separator {
+  background-color: white;
+  height: 2px;
+  width: 100%;
+}
+
+#menu_item_holder:hover {
+  background-color: #88304e;
 }
