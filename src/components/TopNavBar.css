@@ -56,6 +56,7 @@
   height: 3vh;
   display: flex;
   margin-top: 0.5vh;
+  border: white;
   margin-left: 3vh;
   float: left;
 }
@@ -73,6 +74,8 @@
   padding-top: 1vh;
   padding-bottom: 1vh;
   background-color: #e23e57;
+  border: white;
+  border-style: solid;
 }
 
 #menu_item_separator {
@@ -82,5 +85,5 @@
 }
 
 #menu_item_holder:hover {
-  background-color: #88304e;
+  background-color: #5c2c3a;
 }

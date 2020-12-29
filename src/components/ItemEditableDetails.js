@@ -62,10 +62,13 @@ function ItemEditableDetails(props) {
       portrait_cover_image:
         photo_type === "portrait_image" ? result : content.portrait_cover_image,
       portrait_cover_image_file:
-        photo_type === "portrait_image" ? file : undefined,
+        photo_type === "portrait_image"
+          ? file
+          : content.portrait_cover_image_file,
       wide_cover_image:
         photo_type === "wide_image" ? result : content.wide_cover_image,
-      wide_cover_image_file: photo_type === "wide_image" ? file : undefined,
+      wide_cover_image_file:
+        photo_type === "wide_image" ? file : content.wide_cover_image_file,
     };
   }
 

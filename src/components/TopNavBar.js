@@ -21,14 +21,6 @@ function TopNavBar(props) {
       <div data-key={key}>
         <div
           data-key={key}
-          id="menu_item_separator"
-          style={{
-            visibility:
-              !first && show_menu === "visible" ? "visible" : "hidden",
-          }}
-        />
-        <div
-          data-key={key}
           id="menu_item_holder"
           style={{
             borderTopLeftRadius: first ? "20px" : "0 px",

@@ -32,7 +32,7 @@ function PersonRow(props, ref) {
 
   function createAllPersonDivs(array) {
     var divArray = [];
-    var lastIndex;
+    var lastIndex = 0;
     array.map((value, index) => {
       lastIndex = index;
       divArray.push(createPersonDiv(index, value.photo_url, value.name, false));
@@ -64,6 +64,7 @@ function PersonRow(props, ref) {
     } else {
       isLastVisibility = props.visibility;
     }
+    console.log(index);
     return (
       <div
         id="person_holder"
