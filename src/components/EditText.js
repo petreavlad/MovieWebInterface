@@ -41,7 +41,12 @@ function EditText(props, ref) {
   function insertAction(event) {
     var text;
     if (event.target.value.length - 1 === actual_text.length) {
-      text = actual_text + event.target.value.slice(-1);
+      if (!props.isPassword) {
+        text = event.target.value;
+      } else {
+        text = actual_text + event.target.value.slice(-1);
+      }
+
       setActualText(text);
       if (props.onChange) {
         props.onChange(text);
@@ -97,6 +102,7 @@ function EditText(props, ref) {
       <textarea
         style={{
           paddingTop: props.padding_top,
+          paddingBottom: props.padding_bottom,
           height: props.height,
           width: props.width,
           whiteSpace: props.whiteSpace ? props.whiteSpace : "nowrap",

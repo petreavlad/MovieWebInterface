@@ -73,14 +73,14 @@ function HomePage() {
           dot_dimension="15px"
           dot_marginBottom="10px"
           dot_between_margin="10px"
-          dot_unselected_color="#3fa7b1"
-          dot_selected_color="#FF003A"
+          dot_unselected_color="#E23E57"
+          dot_selected_color="#88304E"
         ></Galery>
         <GalleryDetails
           height="450px"
           width="800px"
           marginTop="100px"
-          marginRight="100px"
+          marginLeft="1000px"
           backgroundColor="#E23E57"
         ></GalleryDetails>
       </div>

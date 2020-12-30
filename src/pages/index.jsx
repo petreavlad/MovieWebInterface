@@ -74,7 +74,7 @@ function MainPage() {
         </div>
         <EditText
           margin_top="3vh"
-          margin_right="2.5vh"
+          margin_right="3.5vh"
           padding_top="2vh"
           height="5.5vh"
           margin_left="2vh"
@@ -85,7 +85,7 @@ function MainPage() {
         ></EditText>
         <EditText
           margin_top="2vh"
-          margin_right="2.5vh"
+          margin_right="3.5vh"
           padding_top="2vh"
           height="5.5vh"
           margin_left="2vh"

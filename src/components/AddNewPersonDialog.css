@@ -3,8 +3,8 @@
   width: 100%;
   z-index: 10;
   background-color: #000000b6;
-  display: flex;
   visibility: hidden;
+  display: flex;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -16,5 +16,6 @@
 
 #person_dialog_holder {
   background-color: #e23e57;
+  border-radius: 30px;
   text-align: center;
 }
