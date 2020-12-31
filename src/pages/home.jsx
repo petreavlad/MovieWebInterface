@@ -7,20 +7,31 @@ import GalleryDetails from "../components/GalleryDetail";
 import ItemEditableDetails from "../components/ItemEditableDetails";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import AddNewPersonDialog from "../components/AddNewPersonDialog";
+import { setBackgroundListener } from "../utils/StateHandler";
 
 var selectedItemData;
 
 function HomePage() {
+  const [darkBackgroundVisibility, setDarkBackgroundVisibility] = useState(
+    "hidden"
+  );
   const [pageNumber, setPageNumber] = useState(0);
   var galleryRef = useRef();
   var galleryContent;
+
+  useEffect(() => {
+    setBackgroundListener({ setVisibility });
+  }, []);
 
   useEffect(() => {
     if (pageNumber === 0) {
       retrieveGalleryData(localStorage.getItem("user_token"));
     }
   }, [pageNumber]);
+
+  function setVisibility(visible) {
+    setDarkBackgroundVisibility(visible);
+  }
 
   function retrieveGalleryData(token) {
     axios({
@@ -125,7 +136,10 @@ function HomePage() {
 
   return (
     <div>
-      <AddNewPersonDialog></AddNewPersonDialog>
+      <div
+        id="dark_background"
+        style={{ visibility: darkBackgroundVisibility }}
+      ></div>
       <TopNavBar onMenuItemClicked={onNavClicked}></TopNavBar>
       <div>{getPage()}</div>
     </div>

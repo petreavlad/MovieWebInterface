@@ -74,8 +74,9 @@ function MainPage() {
         </div>
         <EditText
           margin_top="3vh"
-          margin_right="3.5vh"
+          margin_right="3vh"
           padding_top="2vh"
+          width="50vh"
           height="5.5vh"
           margin_left="2vh"
           placeholder="Username"
@@ -85,9 +86,10 @@ function MainPage() {
         ></EditText>
         <EditText
           margin_top="2vh"
-          margin_right="3.5vh"
+          margin_right="3vh"
           padding_top="2vh"
           height="5.5vh"
+          width="50vh"
           margin_left="2vh"
           placeholder="Password"
           isPassword="true"

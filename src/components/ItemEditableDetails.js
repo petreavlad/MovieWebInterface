@@ -3,12 +3,15 @@ import EditText from "./EditText";
 import PersonRow from "../components/PersonRow";
 import "./ItemEditableDetails.css";
 import axios from "axios";
+import AddNewPersonDialog from "../components/AddNewPersonDialog";
+import { getBackgroundListener } from "../utils/StateHandler";
 
 function ItemEditableDetails(props) {
   const [content, setContent] = useState({});
 
   var photo_type = "";
   var pageReferences = {
+    dialog: useRef(),
     starRowRef: useRef(),
     creatorRowRef: useRef(),
     inputFileRef: useRef(),
@@ -75,6 +78,11 @@ function ItemEditableDetails(props) {
 
   function onStarClicked(person) {
     if (person == "ADD_CARD") {
+      var listener = getBackgroundListener();
+      if (listener && listener.setVisibility) {
+        listener.setVisibility("visible");
+        pageReferences.dialog.current.setDialogVisibility("visible");
+      }
     }
   }
 
@@ -171,6 +179,7 @@ function ItemEditableDetails(props) {
 
   return (
     <div>
+      <AddNewPersonDialog ref={pageReferences.dialog}></AddNewPersonDialog>
       <div className="detail_holder">
         <EditText
           id="title_container"

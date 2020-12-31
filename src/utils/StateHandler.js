@@ -1,7 +1,17 @@
 var state_holder = [];
+var darkBackgroundListener;
 
 export function getComponentState(key) {
   return state_holder.find((state) => state.key === key);
+}
+
+export function setBackgroundListener(listener) {
+  darkBackgroundListener = listener;
+  console.log(darkBackgroundListener);
+}
+
+export function getBackgroundListener() {
+  return darkBackgroundListener;
 }
 
 export function insertComponentState(key, state) {

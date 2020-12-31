@@ -121,7 +121,11 @@ function EditableCollection(props) {
   }
 
   return (
-    <div>{items_to_be_displayed.length > 0 ? items_to_be_displayed : null}</div>
+    <div>
+      <div>
+        {items_to_be_displayed.length > 0 ? items_to_be_displayed : null}
+      </div>
+    </div>
   );
 }
 

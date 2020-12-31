@@ -2,20 +2,47 @@
   height: 100%;
   width: 100%;
   z-index: 10;
-  background-color: #000000b6;
-  visibility: hidden;
   display: flex;
-  position: absolute;
+  position: fixed;
+  visibility: hidden;
   justify-content: center;
   align-items: center;
 }
 
 #person_dialog_image {
   margin-top: 1.5vh;
+  width: 15vh;
+  height: 15vh;
+  cursor: pointer;
+  border-radius: 15vh;
 }
 
 #person_dialog_holder {
   background-color: #e23e57;
   border-radius: 30px;
+  margin-bottom: 30vh;
   text-align: center;
+}
+
+#person_button_style {
+  border: none;
+  background-color: rgba(82, 37, 70, 0.4);
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  padding-left: 4.5vh;
+  padding-right: 4.5vh;
+  font-size: 3vh;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+#person_button_style:focus {
+  outline: none;
+}
+
+#person_button_style:active {
+  background-color: #522546;
 }

@@ -81,3 +81,15 @@
   text-align: center;
   margin-top: 2vh;
 }
+
+#dark_background {
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  position: fixed;
+  background-color: #00000054;
+  visibility: hidden;
+  justify-content: center;
+  align-items: center;
+}
