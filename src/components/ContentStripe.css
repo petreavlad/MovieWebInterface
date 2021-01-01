@@ -1,0 +1,47 @@
+#content_stripe_holder {
+  display: flex;
+  margin-bottom: 3vh;
+  overflow: scroll;
+  padding-top: 2.5vh;
+  padding-bottom: 2.5vh;
+  scroll-behavior: smooth;
+}
+
+#content_card_holder {
+  float: left;
+  border-radius: 5vh;
+}
+
+#content_card_holder:hover {
+  transform: scale(1.1);
+}
+
+#content_card_imge {
+  border-radius: 5vh;
+}
+
+#stripe_title_holder {
+  margin-top: 2vh;
+  font-size: 2.5vh;
+  color: white;
+}
+
+#content_stripe_right_arrow {
+  position: absolute;
+  right: 0;
+  z-index: 4;
+  content: url("https://res.cloudinary.com/dodwfb1ar/image/upload/v1609537886/utils/Stripe_show_left_1_c0duqd.png");
+}
+
+#content_stripe_right_arrow:hover {
+  content: url("https://res.cloudinary.com/dodwfb1ar/image/upload/v1609538163/utils/Stripe_show_left_3_d4whwf.png");
+}
+
+#content_stripe_left_arrow {
+  position: absolute;
+  z-index: 4;
+  content: url("https://res.cloudinary.com/dodwfb1ar/image/upload/v1609541350/utils/Stripe_show_right_kl1v7p.png");
+}
+#content_stripe_left_arrow:hover {
+  content: url("https://res.cloudinary.com/dodwfb1ar/image/upload/v1609541368/utils/Stripe_show_left_5_b5e4he.png");
+}

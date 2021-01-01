@@ -77,12 +77,17 @@ function ItemEditableDetails(props) {
   }
 
   function onStarClicked(person) {
-    if (person == "ADD_CARD") {
-      var listener = getBackgroundListener();
-      if (listener && listener.setVisibility) {
-        listener.setVisibility("visible");
-        pageReferences.dialog.current.setDialogVisibility("visible");
+    var listener = getBackgroundListener();
+    if (listener && listener.setVisibility) {
+      if (person === "ADD_NEW_STAR") {
+        pageReferences.dialog.current.setPersonType("ADD_NEW_STAR");
       }
+
+      if (person === "ADD_NEW_CREATOR") {
+        pageReferences.dialog.current.setPersonType("ADD_NEW_CREATOR");
+      }
+      listener.setVisibility("visible");
+      pageReferences.dialog.current.setDialogVisibility("visible");
     }
   }
 
@@ -144,7 +149,7 @@ function ItemEditableDetails(props) {
     if (props.itemDetails && props.itemDetails.content_id) {
       axios({
         method: "post",
-        url: "https://movie-test-app-2223.herokuapp.com/content/update",
+        url: "http://movie-test-app-2223.herokuapp.com/content/update",
         data: bodyFormData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -152,16 +157,14 @@ function ItemEditableDetails(props) {
         },
         params: { content_id: props.itemDetails.content_id },
       })
-        .then((response) => {
-          console.log(response);
-        })
+        .then((response) => {})
         .catch((error) => {
           console.log(error);
         });
     } else {
       axios({
         method: "post",
-        url: "https://movie-test-app-2223.herokuapp.com/content/add",
+        url: "http://movie-test-app-2223.herokuapp.com/content/add",
         data: bodyFormData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -177,9 +180,22 @@ function ItemEditableDetails(props) {
     }
   }
 
+  function onNewPersonAdded(data, type) {
+    if (type === "ADD_NEW_STAR") {
+      pageReferences.starRowRef.current.replaceItems(data.stars);
+    }
+    if (type === "ADD_NEW_CREATOR") {
+      pageReferences.creatorRowRef.current.replaceItems(data.creators);
+    }
+  }
+
   return (
     <div>
-      <AddNewPersonDialog ref={pageReferences.dialog}></AddNewPersonDialog>
+      <AddNewPersonDialog
+        content_id={props.itemDetails.content_id}
+        ref={pageReferences.dialog}
+        onSaveListener={onNewPersonAdded}
+      ></AddNewPersonDialog>
       <div className="detail_holder">
         <EditText
           id="title_container"
@@ -210,7 +226,7 @@ function ItemEditableDetails(props) {
           src={
             content.portrait_cover_image
               ? content.portrait_cover_image
-              : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1608481487/utils/Group_36_1_ppwgei.png"
+              : "http://res.cloudinary.com/dodwfb1ar/image/upload/v1608481487/utils/Group_36_1_ppwgei.png"
           }
         ></img>
         <div id="wide_image_title">Wide Poster Image:</div>
@@ -223,7 +239,7 @@ function ItemEditableDetails(props) {
           src={
             content.wide_cover_image
               ? content.wide_cover_image
-              : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1608481259/utils/Group_36_o1ypmn.png"
+              : "http://res.cloudinary.com/dodwfb1ar/image/upload/v1608481259/utils/Group_36_o1ypmn.png"
           }
         ></img>
         <EditText
@@ -346,9 +362,10 @@ function ItemEditableDetails(props) {
           marginLeft="auto"
           resetEditText="true"
           marginRight="auto"
-          addIconImage="https://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
+          addIconImage="http://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
           xButtonDimmension="25px"
           addIconText="Add Star"
+          personType="ADD_NEW_STAR"
           xMarginStart="110px"
           onItemClicked={onStarClicked}
           ref={pageReferences.starRowRef}
@@ -372,10 +389,12 @@ function ItemEditableDetails(props) {
           resetEditText="true"
           marginLeft="auto"
           marginRight="auto"
+          personType="ADD_NEW_CREATOR"
           xButtonDimmension="25px"
+          onItemClicked={onStarClicked}
           onxClick={onxClickedCreators}
           addIconText="Add Creator"
-          addIconImage="https://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
+          addIconImage="http://res.cloudinary.com/dodwfb1ar/image/upload/v1608407467/utils/Add_person_1_n9x8p3.png"
           xMarginStart="110px"
           ref={pageReferences.creatorRowRef}
           personArray={props.itemDetails ? props.itemDetails.creators : []}

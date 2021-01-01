@@ -4,6 +4,7 @@ import TopNavBar from "../components/TopNavBar";
 import Galery from "../components/Galery";
 import EditableCollection from "../components/EditableCollection";
 import GalleryDetails from "../components/GalleryDetail";
+import ContentStripe from "../components/ContentStripe";
 import ItemEditableDetails from "../components/ItemEditableDetails";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
@@ -36,7 +37,7 @@ function HomePage() {
   function retrieveGalleryData(token) {
     axios({
       method: "get",
-      url: "https://movie-test-app-2223.herokuapp.com/content/",
+      url: "https://movie-test-app-2223.herokuapp.com/content",
       headers: { token: token, limit: 10 },
     }).then((response) => {
       galleryContent = response.data.response;
@@ -75,25 +76,75 @@ function HomePage() {
   function getHomePage() {
     return (
       <div>
-        <Galery
-          ref={galleryRef}
-          height="450px"
-          width="800px"
-          marginTop="100px"
-          marginLeft="100px"
-          dot_dimension="15px"
-          dot_marginBottom="10px"
-          dot_between_margin="10px"
-          dot_unselected_color="#E23E57"
-          dot_selected_color="#88304E"
-        ></Galery>
-        <GalleryDetails
-          height="450px"
-          width="800px"
-          marginTop="100px"
-          marginLeft="1000px"
-          backgroundColor="#E23E57"
-        ></GalleryDetails>
+        <div id="home_gallery_holder">
+          <Galery
+            ref={galleryRef}
+            height="450px"
+            width="800px"
+            marginTop="100px"
+            marginLeft="100px"
+            dot_dimension="15px"
+            dot_marginBottom="10px"
+            dot_between_margin="10px"
+            dot_unselected_color="#E23E57"
+            dot_selected_color="#88304E"
+          ></Galery>
+          <GalleryDetails
+            height="450px"
+            width="800px"
+            marginTop="100px"
+            marginLeft="1000px"
+            backgroundColor="#E23E57"
+          ></GalleryDetails>
+        </div>
+        <ContentStripe
+          height="30vh"
+          borderWidth="1vh"
+          width="100%"
+          cardWidth="18vh"
+          paddingLeft="8vh"
+          borderColor="#E23E57"
+          titlePaddingLeft="12vh"
+          title="Action"
+          marginTop="1vh"
+          filter="Action"
+        ></ContentStripe>
+        <ContentStripe
+          height="30vh"
+          borderWidth="1vh"
+          width="100%"
+          cardWidth="18vh"
+          paddingLeft="8vh"
+          borderColor="#E23E57"
+          titlePaddingLeft="12vh"
+          title="Drama"
+          marginTop="1vh"
+          filter="Drama"
+        ></ContentStripe>
+        <ContentStripe
+          height="30vh"
+          borderWidth="1vh"
+          width="100%"
+          cardWidth="18vh"
+          paddingLeft="8vh"
+          borderColor="#E23E57"
+          titlePaddingLeft="12vh"
+          title="Comedy"
+          marginTop="1vh"
+          filter="Comedy"
+        ></ContentStripe>
+        <ContentStripe
+          height="30vh"
+          borderWidth="1vh"
+          width="100%"
+          cardWidth="18vh"
+          paddingLeft="8vh"
+          borderColor="#E23E57"
+          titlePaddingLeft="12vh"
+          title="Animation"
+          marginTop="1vh"
+          filter="Animation"
+        ></ContentStripe>
       </div>
     );
   }

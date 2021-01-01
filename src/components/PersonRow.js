@@ -10,7 +10,7 @@ function PersonRow(props, ref) {
   const [persons, setPersons] = useState([]);
   const [content, setContent] = useState([]);
 
-  useImperativeHandle(ref, () => ({ deleteItem }));
+  useImperativeHandle(ref, () => ({ deleteItem, replaceItems }));
 
   useEffect(() => {
     setPersons(props.personArray);
@@ -25,6 +25,8 @@ function PersonRow(props, ref) {
       props.onItemClicked(
         persons[event.target.getAttribute("data-key")]
           ? persons[event.target.getAttribute("data-key")]
+          : props.personType
+          ? props.personType
           : "ADD_CARD"
       );
     }
@@ -51,6 +53,10 @@ function PersonRow(props, ref) {
     setPersons(personArray);
   }
 
+  function replaceItems(newArray) {
+    setPersons(newArray);
+  }
+
   function onXClick(event) {
     if (props.onxClick) {
       props.onxClick(persons[event.target.getAttribute("data-key")]);
@@ -64,7 +70,6 @@ function PersonRow(props, ref) {
     } else {
       isLastVisibility = props.visibility;
     }
-    console.log(index);
     return (
       <div
         id="person_holder"

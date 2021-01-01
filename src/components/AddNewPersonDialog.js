@@ -13,36 +13,98 @@ import axios from "axios";
 function AddNewPersonDialog(props, ref) {
   const [dialogVisibility, setVisibility] = useState("hidden");
   const [image, setImage] = useState("");
+  const [itemsToBeSent, setItemsToBeSent] = useState({});
+  const [personType, setRequestType] = useState("ADD_BUTTON");
   const nameTextbox = useRef();
 
-  var itemsToBeSent = {};
   let inputFileRef = useRef();
 
   useEffect(() => {
     if (dialogVisibility === "hidden") {
       setImage("");
+      setItemsToBeSent({});
       nameTextbox.current.setText("");
     }
   }, [dialogVisibility]);
   useEffect(() => {}, []);
-  useImperativeHandle(ref, () => ({ setDialogVisibility }));
+  useImperativeHandle(ref, () => ({ setDialogVisibility, setPersonType }));
 
   function setDialogVisibility(visibility) {
     setVisibility(visibility);
   }
 
+  function setPersonType(personType) {
+    setRequestType(personType);
+  }
+
   function onSaveClicked() {
+    if (personType === "ADD_NEW_STAR") {
+      onNewStar();
+    }
+
+    if (personType === "ADD_NEW_CREATOR") {
+      onNewCreator();
+    }
+  }
+
+  function onNewCreator() {
+    var bodyFormData = new FormData();
+    bodyFormData.append("creator_name", itemsToBeSent.name);
+    bodyFormData.append("creator_photo", itemsToBeSent.image);
     axios
-      .post("https://movie-test-app-2223.herokuapp.com/content/star", {
-        params: {
-          content_id: props.content_id,
-        },
-        headers: {
-          token: localStorage.getItem("user_token"),
-        },
+      .post(
+        "https://movie-test-app-2223.herokuapp.com/content/creator",
+        bodyFormData,
+        {
+          params: {
+            content_id: props.content_id,
+          },
+          headers: {
+            "Content-Type": "multipart/form-data",
+            token: localStorage.getItem("user_token"),
+          },
+        }
+      )
+      .then((response) => {
+        if (props.onSaveListener) {
+          props.onSaveListener(response.data.data, personType);
+        }
+        setVisibility("hidden");
+        getBackgroundListener().setVisibility("hidden");
       })
-      .then((response) => {})
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function onNewStar() {
+    var bodyFormData = new FormData();
+    bodyFormData.append("star_name", itemsToBeSent.name);
+    bodyFormData.append("star_photo", itemsToBeSent.image);
+    axios
+      .post(
+        "https://movie-test-app-2223.herokuapp.com/content/star",
+        bodyFormData,
+        {
+          params: {
+            content_id: props.content_id,
+          },
+          headers: {
+            "Content-Type": "multipart/form-data",
+            token: localStorage.getItem("user_token"),
+          },
+        }
+      )
+      .then((response) => {
+        if (props.onSaveListener) {
+          props.onSaveListener(response.data.data, personType);
+        }
+        setVisibility("hidden");
+        getBackgroundListener().setVisibility("hidden");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function onImageChosen(event) {
@@ -54,7 +116,6 @@ function AddNewPersonDialog(props, ref) {
       reader.onload = (response) => {
         itemsToBeSent.image = file;
         itemsToBeSent.image_file = response.target.result;
-        console.log(response.target.result);
         setImage(response.target.result);
       };
     }
@@ -101,7 +162,12 @@ function AddNewPersonDialog(props, ref) {
           >
             Cancel
           </button>
-          <button id="person_button_style" onClick={() => {}}>
+          <button
+            id="person_button_style"
+            onClick={() => {
+              onSaveClicked();
+            }}
+          >
             Save
           </button>
         </div>

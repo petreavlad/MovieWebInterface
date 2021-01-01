@@ -29,7 +29,6 @@ function MainPage() {
         localStorage.setItem("user_username", response.data.response.username);
         localStorage.setItem("user_image", response.data.response.user_image);
 
-        console.log(response.data.response);
         history.push("/home");
       })
       .catch((error) => {

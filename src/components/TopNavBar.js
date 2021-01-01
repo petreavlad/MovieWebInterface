@@ -18,8 +18,9 @@ function TopNavBar(props) {
 
   function getMenuItems(imageUrl, text, key, first, last) {
     return (
-      <div data-key={key}>
+      <div key={key + "holder"} data-key={key}>
         <div
+          key={key + "menu_item_holder"}
           data-key={key}
           id="menu_item_holder"
           style={{
@@ -30,9 +31,16 @@ function TopNavBar(props) {
           }}
           onClick={onMenuItemClicked}
         >
-          <img data-key={key} id="menu_item_image" src={imageUrl}></img>
-          <div data-key={key} id="menu_item_text">
-            <b data-key={key}>{text}</b>
+          <img
+            key={key + "menu_item_image"}
+            data-key={key}
+            id="menu_item_image"
+            src={imageUrl}
+          ></img>
+          <div key={key + "menu_item_text"} data-key={key} id="menu_item_text">
+            <b key={key + "_b"} data-key={key}>
+              {text}
+            </b>
           </div>
         </div>
       </div>
@@ -64,10 +72,11 @@ function TopNavBar(props) {
   }
 
   return (
-    <div>
-      <div className="nav_bar_holder">
-        <img id="menu_icon" onClick={onItemClick}></img>
+    <div key="top_nav_bar">
+      <div key="nav_bar_holder" className="nav_bar_holder">
+        <img key="menu_icon" id="menu_icon" onClick={onItemClick}></img>
         <img
+          key="filter_icon"
           className="filter_icon"
           src="https://res.cloudinary.com/dodwfb1ar/image/upload/v1605191504/utils/filter_icon_zyoxnv.png"
         ></img>

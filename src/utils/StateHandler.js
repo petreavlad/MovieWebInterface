@@ -7,7 +7,6 @@ export function getComponentState(key) {
 
 export function setBackgroundListener(listener) {
   darkBackgroundListener = listener;
-  console.log(darkBackgroundListener);
 }
 
 export function getBackgroundListener() {
