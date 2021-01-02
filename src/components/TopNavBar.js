@@ -49,13 +49,21 @@ function TopNavBar(props) {
 
   function getAllMenuItems() {
     let array = [];
-
     array.push(
       getMenuItems(
         "https://res.cloudinary.com/dodwfb1ar/image/upload/v1609265714/utils/home_nwb94j.png",
         "Home",
         "HOME_MENU_KEY",
         true
+      )
+    );
+    array.push(
+      getMenuItems(
+        "https://res.cloudinary.com/dodwfb1ar/image/upload/v1609544670/utils/document_koy9po.png",
+        "API documentation",
+        "DOCUMENTATION_PAGE",
+        false,
+        false
       )
     );
     array.push(

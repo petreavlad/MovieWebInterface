@@ -192,7 +192,7 @@ function ItemEditableDetails(props) {
   return (
     <div>
       <AddNewPersonDialog
-        content_id={props.itemDetails.content_id}
+        content_id={props.itemDetails ? props.itemDetails.content_id : ""}
         ref={pageReferences.dialog}
         onSaveListener={onNewPersonAdded}
       ></AddNewPersonDialog>

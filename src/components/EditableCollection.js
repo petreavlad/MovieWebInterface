@@ -110,7 +110,7 @@ function EditableCollection(props) {
   function getAllItems(token) {
     axios({
       method: "get",
-      url: "https://movie-test-app-2223.herokuapp.com/content",
+      url: "http://movie-test-app-2223.herokuapp.com/content/",
       headers: { token: token },
     }).then((response) => {
       items_to_be_displayed.push(getCardsForItem(response.data.response));

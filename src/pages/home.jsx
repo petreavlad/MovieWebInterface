@@ -6,6 +6,7 @@ import EditableCollection from "../components/EditableCollection";
 import GalleryDetails from "../components/GalleryDetail";
 import ContentStripe from "../components/ContentStripe";
 import ItemEditableDetails from "../components/ItemEditableDetails";
+import ApiDocumentationPage from "../components/ApiDocumentationPage";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { setBackgroundListener } from "../utils/StateHandler";
@@ -37,7 +38,7 @@ function HomePage() {
   function retrieveGalleryData(token) {
     axios({
       method: "get",
-      url: "https://movie-test-app-2223.herokuapp.com/content",
+      url: "http://movie-test-app-2223.herokuapp.com/content/",
       headers: { token: token, limit: 10 },
     }).then((response) => {
       galleryContent = response.data.response;
@@ -64,6 +65,9 @@ function HomePage() {
         break;
       case "ADMIN_MENU_PAGE":
         setPageNumber(1);
+        break;
+      case "DOCUMENTATION_PAGE":
+        setPageNumber(3);
         break;
     }
   }
@@ -167,6 +171,10 @@ function HomePage() {
     );
   }
 
+  function getApiPage() {
+    return <ApiDocumentationPage></ApiDocumentationPage>;
+  }
+
   function getEditableDetailPage() {
     return (
       <ItemEditableDetails itemDetails={selectedItemData}></ItemEditableDetails>
@@ -180,6 +188,8 @@ function HomePage() {
       case 2:
         return getEditableDetailPage();
       default:
+      case 3:
+        return getApiPage();
       case 0:
         return getHomePage();
     }

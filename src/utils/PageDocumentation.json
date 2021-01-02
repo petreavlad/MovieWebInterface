@@ -1,0 +1,25 @@
+{
+    "pagecontent":[
+        {
+            "type":"POST",
+            "url":"https://movie-test-app-2223.herokuapp.com/user/register",
+            "body":[{
+                "key":"username",
+                "value":"string"
+            },
+            {
+                "key":"password",
+                "value":"password"
+            },
+            {
+                "key":"email",
+                "value":"password"
+            },
+            {
+                "key":"user_image",
+                "value":"file"
+            }]
+            
+        }
+    ]
+}
