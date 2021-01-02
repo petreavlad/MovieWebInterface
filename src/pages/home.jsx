@@ -36,21 +36,28 @@ function HomePage() {
   }
 
   function retrieveGalleryData(token) {
-    axios({
-      method: "get",
-      url: "http://movie-test-app-2223.herokuapp.com/content/",
-      headers: { token: token, limit: 10 },
-    }).then((response) => {
-      galleryContent = response.data.response;
-      var imageArray = [];
+    axios
+      .get("https://movie-test-app-2223.herokuapp.com/content/", {
+        headers: {
+          token: token,
+          limit: 10,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then((response) => {
+        galleryContent = response.data.response;
+        var imageArray = [];
 
-      for (let i = 0; i < galleryContent.length; i++) {
-        imageArray.push(galleryContent[i].wide_cover_image);
-      }
+        for (let i = 0; i < galleryContent.length; i++) {
+          imageArray.push(galleryContent[i].wide_cover_image);
+        }
 
-      galleryRef.current.addElements(imageArray);
-      if (pageNumber === 0) setTimeout(startGalleryTimer, 1000);
-    });
+        galleryRef.current.addElements(imageArray);
+        if (pageNumber === 0) setTimeout(startGalleryTimer, 1000);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   function startGalleryTimer() {
