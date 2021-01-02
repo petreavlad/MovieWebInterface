@@ -27,7 +27,7 @@ function ContentStripe(props) {
   function getContent() {
     axios({
       method: "GET",
-      url: "https://movie-test-app-2223.herokuapp.com/content",
+      url: "https://movie-test-app-2223.herokuapp.com/content/get",
       headers: {
         token: localStorage.getItem("user_token"),
         filter:

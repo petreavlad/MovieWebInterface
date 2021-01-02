@@ -37,11 +37,10 @@ function HomePage() {
 
   function retrieveGalleryData(token) {
     axios
-      .get("https://movie-test-app-2223.herokuapp.com/content/", {
+      .get("https://movie-test-app-2223.herokuapp.com/content/get", {
         headers: {
           token: token,
           limit: 10,
-          "Access-Control-Allow-Origin": "*",
         },
       })
       .then((response) => {
