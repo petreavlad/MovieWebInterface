@@ -1,7 +1,3 @@
-#api_doc_content_holder {
-  padding-top: 5vh;
-}
-
 #page_header_holder {
   padding-top: 2vh;
   padding-left: 15vh;
@@ -32,12 +28,15 @@
 #page_item_holder {
   background-color: #e23e57;
   border-radius: 10vh;
+  margin-top: 10vh;
   margin-left: 10vh;
   margin-right: 10vh;
+  margin-bottom: 5vh;
 }
 
 #page_item_url {
   color: white;
+  font-size: 3vh;
 }
 
 #page_item_title {
@@ -45,4 +44,37 @@
   font-size: 4vh;
   color: white;
   padding-top: 3vh;
+}
+
+#page_item_body_example_holder {
+  width: 100vh;
+}
+
+#page_item_body_holder {
+  padding-left: 15vh;
+}
+
+#page_item_body_title {
+  margin-top: 3vh;
+  font-size: 2.5vh;
+  width: auto;
+  color: white;
+  margin-bottom: 3vh;
+}
+
+.data-type-label {
+  color: #88304e;
+}
+
+.string-value {
+  color: white;
+}
+
+.object-size {
+  color: #88304e;
+}
+
+#page_item_bottom_margin {
+  height: 10vh;
+  width: 100%;
 }

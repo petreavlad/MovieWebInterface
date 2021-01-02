@@ -1,25 +1,354 @@
 {
     "pagecontent":[
         {
+            "name":"Registration",
             "type":"POST",
             "url":"https://movie-test-app-2223.herokuapp.com/user/register",
-            "body":[{
-                "key":"username",
-                "value":"string"
+            "body":{
+                "username":"string",
+                "password":"string",
+                "email":"string",
+                "user_image":"file(jpg,jpeg,png)"
             },
-            {
-                "key":"password",
-                "value":"password"
+            "body_type":"form-data",
+            "response":{
+                "code": 200,
+                "message": "string",
+                "username": "string",
+                "email": "string",
+                "user_image": "url",
+                "is_active": false,
+                "creation_time": "long"
+            }
+        },
+        {
+            "name":"Terms and conditions",
+            "type":"GET",
+            "url":"https://movie-test-app-2223.herokuapp.com/user/agreement",
+            "response":{
+                "code": 200,
+                "message": "string",
+                "timestamp": "long"
+            }
+        }
+        ,
+        {
+            "name":"Account activation",
+            "type":"GET",
+            "url":"https://movie-test-app-2223.herokuapp.com/user/activate?username={string}",
+            "response":{
+                "conde": 200,
+                "message": "string",
+                "timestamp": "long"
+            }
+        }
+        ,
+        {
+            "name":"Login",
+            "type":"POST",
+            "url":"https://movie-test-app-2223.herokuapp.com/user/login",
+            "body_type":"raw",
+            "body":{
+                "username":"string",
+                "password":"string"
             },
-            {
-                "key":"email",
-                "value":"password"
+            "response":{
+                "code": 200,
+                "response": {
+                    "username": "vladut",
+                    "token": "string",
+                    "expiration_time": "long",
+                    "email": "string",
+                    "user_image": "url",
+                    "creation_time": "long"
+                },
+                "timestamp": "long"
+            }
+        }
+        ,
+        {
+            "name":"Refresh token",
+            "type":"GET",
+            "url":"https://movie-test-app-2223.herokuapp.com/user/refresh",
+            "headers":{
+                "token":"string"
             },
-            {
-                "key":"user_image",
-                "value":"file"
-            }]
-            
+            "response":{
+                "code": 200,
+                "response": {
+                    "new_token": "string"
+                },
+                "timestamp": "long"
+            }
+        },
+        {
+            "name":"Add Content",
+            "type":"POST",
+            "url":"https://movie-test-app-2223.herokuapp.com/content/add",
+            "headers":{
+                "token":"string"
+            },
+            "body_type":"form-data",
+            "body":{
+                "portrait_cover_image":"file(jpeg,jpg,png)",
+                "wide_cover_image":"file(jpeg,jpg,png)",
+                "genres":"[string,string,string]",
+                "title":"string",
+                "description":"string",
+                "year":"string",
+                "rating":"string",
+                "youtube_link":"url"
+            },
+            "response":{
+                "code": 200,
+                "response": {
+                    "title": "string",
+                    "year": "string",
+                    "content_id": "string",
+                    "rating": "string",
+                    "genres": [
+                        "string",
+                        " string",
+                        " string"
+                    ],
+                    "wide_cover_image": "url",
+                    "portrait_cover_image": "url",
+                    "description": "string",
+                    "youtube_link": "url",
+                    "creation_time": "string"
+                },
+                "timestamp": "long"
+            }
+        },
+        {
+            "name":"Get content",
+            "type":"GET",
+            "url":"https://movie-test-app-2223.herokuapp.com/content",
+            "headers":{
+                "token":"string (required)",
+                "filter":"string(optional)",
+                "sort":"json(optional)",
+                "limit":"string(optional)",
+                "skip":"string(optional)"
+            },
+            "response":{
+                "code": 200,
+                "response": [
+                    "...",
+                    {
+                        "genres": [
+                            "string",
+                            " string",
+                            " string"
+                        ],
+                        "title": "string",
+                        "content_id": "string",
+                        "wide_cover_image": "url",
+                        "portrait_cover_image": "url",
+                        "year": "string",
+                        "rating": "string",
+                        "description": "string",
+                        "youtube_link": "url",
+                        "creation_time": "string",
+                        "stars": ["starObjects"],
+                        "creators": ["creatorObjects"],
+                        "messages": ["messageObjects"]
+                    },"..."
+                ],    "timestamp": "long"
+            }
+
+        },
+        {
+            "name":"Add star",
+            "type":"POST",
+            "url":"https://movie-test-app-2223.herokuapp.com/content/star?content_id={string}",
+            "headers":{
+                "token":"string"
+            },
+            "body_type":"form-data",
+            "body":{
+                "star_photo":"file(jpeg,jpg,png)",
+                "star_name":"star_name"
+            },
+            "response":{
+                "data": {
+                    "genres": [
+                        "string",
+                        " string",
+                        " string"
+                    ],
+                    "title": "string",
+                    "content_id": "string",
+                    "wide_cover_image": "url",
+                    "wide_cover_image_public_id": "string",
+                    "portrait_cover_image_public_id": "string",
+                    "portrait_cover_image": "url",
+                    "year": "string",
+                    "rating": "string",
+                    "description": "string",
+                    "youtube_link": "url",
+                    "creation_time": "long",
+                    "stars": [
+                        {
+                            "person_id": "string",
+                            "name": "string",
+                            "photo_url": "url"
+                        }
+                    ],
+                    "creators": [],
+                    "messages": []
+                },
+                "code": 200
+            }
+        },
+        {
+            "name":"Add creator",
+            "type":"POST",
+            "url":"https://movie-test-app-2223.herokuapp.com/content/creator?content_id={string}",
+            "headers":{
+                "token":"string"
+            },
+            "body_type":"form-data",
+            "body":{
+                "creator_photo":"file(jpeg,jpg,png)",
+                "creator_name":"star_name"
+            },
+            "response":{
+                "data": {
+                    "genres": [
+                        "string",
+                        " string",
+                        " string"
+                    ],
+                    "title": "string",
+                    "content_id": "string",
+                    "wide_cover_image": "url",
+                    "wide_cover_image_public_id": "string",
+                    "portrait_cover_image_public_id": "string",
+                    "portrait_cover_image": "url",
+                    "year": "string",
+                    "rating": "string",
+                    "description": "string",
+                    "youtube_link": "url",
+                    "creation_time": "long",
+                    "stars": [],
+                    "creators": [{
+                        "person_id": "string",
+                        "name": "string",
+                        "photo_url": "url"
+                    }],
+                    "messages": []
+                },
+                "code": 200
+            }
+        },
+        {
+            "name":"Delete star",
+            "type":"DELETE",
+            "url":"https://movie-test-app-2223.herokuapp.com/content/star?person_id={string}&content_id={string}",
+            "headers":{
+                "token":"string"
+            },
+            "response":{
+                "data": {
+                    "genres": [
+                        "string",
+                        " string",
+                        " string"
+                    ],
+                    "title": "string",
+                    "content_id": "string",
+                    "wide_cover_image": "url",
+                    "wide_cover_image_public_id": "string",
+                    "portrait_cover_image_public_id": "string",
+                    "portrait_cover_image": "url",
+                    "year": "string",
+                    "rating": "string",
+                    "description": "string",
+                    "youtube_link": "url",
+                    "creation_time": "long",
+                    "stars": [],
+                    "creators": [],
+                    "messages": []
+                },
+                "code": 200
+            }
+        },
+        {
+            "name":"Delete creator",
+            "type":"DELETE",
+            "url":"https://movie-test-app-2223.herokuapp.com/content/creator?person_id={string}&content_id={string}",
+            "headers":{
+                "token":"string"
+            },
+            "response":{
+                "data": {
+                    "genres": [
+                        "string",
+                        " string",
+                        " string"
+                    ],
+                    "title": "string",
+                    "content_id": "string",
+                    "wide_cover_image": "url",
+                    "wide_cover_image_public_id": "string",
+                    "portrait_cover_image_public_id": "string",
+                    "portrait_cover_image": "url",
+                    "year": "string",
+                    "rating": "string",
+                    "description": "string",
+                    "youtube_link": "url",
+                    "creation_time": "long",
+                    "stars": [],
+                    "creators": [],
+                    "messages": []
+                },
+                "code": 200
+            }
+        }
+        ,
+        {
+            "name":"Update content",
+            "type":"POST",
+            "url":"https://movie-test-app-2223.herokuapp.com/content/update?content_id={string}",
+            "headers":{
+                "token":"string"
+            },
+            "body_type":"form-data",
+            "body":{
+                "portrait_cover_image":"file(jpeg,jpg,png)",
+                "wide_cover_image":"file(jpeg,jpg,png)",
+                "genres":"[string,string,string]",
+                "title":"string",
+                "description":"string",
+                "year":"string",
+                "rating":"string",
+                "youtube_link":"url"
+            },
+            "response":{
+                "data": {
+                    "genres": [
+                        "string",
+                        " string",
+                        " string"
+                    ],
+                    "title": "string",
+                    "content_id": "string",
+                    "wide_cover_image": "url",
+                    "wide_cover_image_public_id": "string",
+                    "portrait_cover_image_public_id": "string",
+                    "portrait_cover_image": "url",
+                    "year": "string",
+                    "rating": "string",
+                    "description": "string",
+                    "youtube_link": "url",
+                    "creation_time": "long",
+                    "stars": [],
+                    "creators": [],
+                    "messages": []
+                },
+                "code": 200
+            }
         }
     ]
 }
