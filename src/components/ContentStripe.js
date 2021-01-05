@@ -24,6 +24,12 @@ function ContentStripe(props) {
     setDivArray(array);
   }, [content]);
 
+  function onClicked(event) {
+    if (props.onClick) {
+      props.onClick(content[event.target.getAttribute("data-key")]);
+    }
+  }
+
   function getContent() {
     axios({
       method: "GET",
@@ -45,6 +51,8 @@ function ContentStripe(props) {
       <div
         id="content_card_holder"
         key={index}
+        data-key={index}
+        onClick={onClicked}
         style={{
           height: props.height,
           minWidth: props.cardWidth,
@@ -55,6 +63,7 @@ function ContentStripe(props) {
         <img
           id="content_card_imge"
           src={image.portrait_cover_image}
+          data-key={index}
           style={{
             height: getImageHeight(),
             width: getImageWidth(),

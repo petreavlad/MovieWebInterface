@@ -14,7 +14,9 @@ function GalleryDetails(props) {
         marginBottom: props.marginBottom,
         backgroundColor: props.backgroundColor,
       }}
-    ></div>
+    >
+      <div></div>
+    </div>
   );
 }
 

@@ -10,6 +10,7 @@ import ApiDocumentationPage from "../components/ApiDocumentationPage";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { setBackgroundListener } from "../utils/StateHandler";
+import DetailPage from "../components/DetailPage";
 
 var selectedItemData;
 
@@ -83,15 +84,20 @@ function HomePage() {
     setPageNumber(2);
   }
 
+  function onStripeElementClicked(item) {
+    selectedItemData = item;
+    setPageNumber(4);
+  }
+
   function getHomePage() {
     return (
       <div>
         <div id="home_gallery_holder">
           <Galery
             ref={galleryRef}
-            height="450px"
-            width="800px"
-            marginTop="100px"
+            height="350px"
+            width="600px"
+            marginTop="70px"
             marginLeft="100px"
             dot_dimension="15px"
             dot_marginBottom="10px"
@@ -100,10 +106,10 @@ function HomePage() {
             dot_selected_color="#88304E"
           ></Galery>
           <GalleryDetails
-            height="450px"
-            width="800px"
-            marginTop="100px"
-            marginLeft="1000px"
+            height="350px"
+            width="600px"
+            marginTop="70px"
+            marginLeft="800px"
             backgroundColor="#E23E57"
           ></GalleryDetails>
         </div>
@@ -118,6 +124,7 @@ function HomePage() {
           title="Action"
           marginTop="1vh"
           filter="Action"
+          onClick={onStripeElementClicked}
         ></ContentStripe>
         <ContentStripe
           height="30vh"
@@ -130,6 +137,7 @@ function HomePage() {
           title="Drama"
           marginTop="1vh"
           filter="Drama"
+          onClick={onStripeElementClicked}
         ></ContentStripe>
         <ContentStripe
           height="30vh"
@@ -142,6 +150,7 @@ function HomePage() {
           title="Comedy"
           marginTop="1vh"
           filter="Comedy"
+          onClick={onStripeElementClicked}
         ></ContentStripe>
         <ContentStripe
           height="30vh"
@@ -154,6 +163,7 @@ function HomePage() {
           title="Animation"
           marginTop="1vh"
           filter="Animation"
+          onClick={onStripeElementClicked}
         ></ContentStripe>
       </div>
     );
@@ -187,6 +197,10 @@ function HomePage() {
     );
   }
 
+  function getDetailPage() {
+    return <DetailPage item={selectedItemData}></DetailPage>;
+  }
+
   function getPage() {
     switch (pageNumber) {
       case 1:
@@ -196,6 +210,8 @@ function HomePage() {
       default:
       case 3:
         return getApiPage();
+      case 4:
+        return getDetailPage();
       case 0:
         return getHomePage();
     }
