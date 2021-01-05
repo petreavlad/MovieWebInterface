@@ -29,3 +29,20 @@
   margin-top: 2vh;
   color: white;
 }
+
+#detail_page_description {
+  width: 1000px;
+  margin-left: 11vh;
+  margin-right: 5vh;
+  text-align: left;
+  font-size: 25px;
+  margin-top: 20px;
+  color: white;
+}
+
+#detail_page_subtitle_text {
+  text-align: left;
+  margin-left: 11vh;
+  font-size: 20px;
+  color: #dbdbdb;
+}

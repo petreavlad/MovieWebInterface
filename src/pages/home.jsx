@@ -24,6 +24,10 @@ function HomePage() {
 
   useEffect(() => {
     setBackgroundListener({ setVisibility });
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener("popstate", function (event) {
+      window.history.pushState(null, document.title, window.location.href);
+    });
   }, []);
 
   useEffect(() => {
@@ -198,7 +202,14 @@ function HomePage() {
   }
 
   function getDetailPage() {
-    return <DetailPage item={selectedItemData}></DetailPage>;
+    return (
+      <DetailPage
+        onBackPress={() => {
+          setPageNumber(0);
+        }}
+        item={selectedItemData}
+      ></DetailPage>
+    );
   }
 
   function getPage() {
