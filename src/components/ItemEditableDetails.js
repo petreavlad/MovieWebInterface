@@ -149,7 +149,7 @@ function ItemEditableDetails(props) {
     if (props.itemDetails && props.itemDetails.content_id) {
       axios({
         method: "post",
-        url: "http://movie-test-app-2223.herokuapp.com/content/update",
+        url: "https://movie-test-app-2223.herokuapp.com/content/update",
         data: bodyFormData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -164,7 +164,7 @@ function ItemEditableDetails(props) {
     } else {
       axios({
         method: "post",
-        url: "http://movie-test-app-2223.herokuapp.com/content/add",
+        url: "https://movie-test-app-2223.herokuapp.com/content/add",
         data: bodyFormData,
         headers: {
           "Content-Type": "multipart/form-data",
