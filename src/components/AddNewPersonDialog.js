@@ -53,7 +53,7 @@ function AddNewPersonDialog(props, ref) {
     bodyFormData.append("creator_photo", itemsToBeSent.image);
     axios
       .post(
-        "http://movie-test-app-2223.herokuapp.com/content/creator",
+        "https://movie-test-app-2223.herokuapp.com/content/creator",
         bodyFormData,
         {
           params: {
