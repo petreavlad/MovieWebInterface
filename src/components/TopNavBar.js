@@ -106,7 +106,11 @@ function TopNavBar(props) {
         ></EditText>
         <img
           className="user_round_image"
-          src="https://res.cloudinary.com/dodwfb1ar/image/upload/v1601644311/utils/download_xlauab.jpg"
+          src={
+            localStorage.getItem("user_image")
+              ? localStorage.getItem("user_image").replace("https", "http")
+              : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1601644311/utils/download_xlauab.jpg"
+          }
         ></img>
       </div>
       <div id="menu_dropdown" style={{ visibility: show_menu }}>

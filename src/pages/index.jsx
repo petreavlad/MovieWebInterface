@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../pages/main_page.css";
 import EditText from "../components/EditText.js";
 import ErrorDialog from "../components/ErrorDialog.js";
@@ -17,6 +17,10 @@ function MainPage() {
   const [show_second_button, showSeccondButton] = useState(false);
   const [show_register_error_button, showRegisterButton] = useState(false);
   let history = useHistory();
+
+  useEffect(() => {
+    state.username = localStorage.getItem("user_username");
+  }, []);
 
   function buttonClick() {
     axios({
@@ -68,7 +72,11 @@ function MainPage() {
         <div className="circle_holder">
           <img
             className="user_image"
-            src="https://res.cloudinary.com/dodwfb1ar/image/upload/v1601644311/utils/download_xlauab.jpg"
+            src={
+              localStorage.getItem("user_image")
+                ? localStorage.getItem("user_image").replace("https", "http")
+                : "https://res.cloudinary.com/dodwfb1ar/image/upload/v1601644311/utils/download_xlauab.jpg"
+            }
           ></img>
         </div>
         <EditText
@@ -79,6 +87,7 @@ function MainPage() {
           height="5.5vh"
           margin_left="2vh"
           placeholder="Username"
+          text={localStorage.getItem("user_username")}
           onChange={(value) => {
             state.username = value;
           }}
