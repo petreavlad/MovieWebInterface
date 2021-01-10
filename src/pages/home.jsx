@@ -20,6 +20,7 @@ function HomePage() {
   );
   const [pageNumber, setPageNumber] = useState(0);
   var galleryRef = useRef();
+  var searchRef = useRef();
   var galleryContent;
 
   useEffect(() => {
@@ -34,6 +35,7 @@ function HomePage() {
     if (pageNumber === 0) {
       retrieveGalleryData(localStorage.getItem("user_token"));
     }
+    console.log(pageNumber);
   }, [pageNumber]);
 
   function setVisibility(visible) {
@@ -91,6 +93,17 @@ function HomePage() {
   function onStripeElementClicked(item) {
     selectedItemData = item;
     setPageNumber(4);
+  }
+
+  function onSearcTriggered(value) {
+    selectedItemData = value;
+    if (pageNumber === 5) {
+      searchRef.current.getItemsByFilter(value);
+    } else if (pageNumber !== 1) {
+      setPageNumber(5);
+    } else {
+      searchRef.current.getItemsByFilter(value);
+    }
   }
 
   function getHomePage() {
@@ -176,6 +189,7 @@ function HomePage() {
   function getAddElements() {
     return (
       <EditableCollection
+        key="admin_page"
         maxItemsPerRow="6"
         width="200px"
         height="363px"
@@ -185,6 +199,7 @@ function HomePage() {
         borderWidth="10"
         borderColor="#E23E57"
         cardRadius="30px"
+        ref={searchRef}
         showPlusCard={true}
         onItemClicked={onCollectionItemClicked}
       ></EditableCollection>
@@ -212,6 +227,25 @@ function HomePage() {
     );
   }
 
+  function getSearchCollection() {
+    return (
+      <EditableCollection
+        searchValue={selectedItemData}
+        maxItemsPerRow="6"
+        width="200px"
+        height="363px"
+        inBetweenMargin="30px"
+        rowMrginTop="50px"
+        rowMarginLeft="25px"
+        borderWidth="10"
+        borderColor="#E23E57"
+        cardRadius="30px"
+        ref={searchRef}
+        onItemClicked={onStripeElementClicked}
+      ></EditableCollection>
+    );
+  }
+
   function getPage() {
     switch (pageNumber) {
       case 1:
@@ -223,8 +257,12 @@ function HomePage() {
         return getApiPage();
       case 4:
         return getDetailPage();
+      case 5:
+        return getSearchCollection();
       case 0:
         return getHomePage();
+      case 6:
+        return <div></div>;
     }
   }
 
@@ -234,7 +272,10 @@ function HomePage() {
         id="dark_background"
         style={{ visibility: darkBackgroundVisibility }}
       ></div>
-      <TopNavBar onMenuItemClicked={onNavClicked}></TopNavBar>
+      <TopNavBar
+        onEnterPressed={onSearcTriggered}
+        onMenuItemClicked={onNavClicked}
+      ></TopNavBar>
       <div>{getPage()}</div>
     </div>
   );

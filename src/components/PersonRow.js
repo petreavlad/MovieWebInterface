@@ -35,13 +35,27 @@ function PersonRow(props, ref) {
   function createAllPersonDivs(array) {
     var divArray = [];
     var lastIndex = 0;
+    console.log(array.length);
     array.map((value, index) => {
       lastIndex = index;
-      divArray.push(createPersonDiv(index, value.photo_url, value.name, false));
+      let isLast = false;
+      if (lastIndex === array.length - 1 && !props.addIconImage) {
+        isLast = true;
+      }
+      divArray.push(
+        createPersonDiv(index, value.photo_url, value.name, isLast)
+      );
     });
-    divArray.push(
-      createPersonDiv(++lastIndex, props.addIconImage, props.addIconText, true)
-    );
+    if (props.addIconImage) {
+      divArray.push(
+        createPersonDiv(
+          ++lastIndex,
+          props.addIconImage,
+          props.addIconText,
+          true
+        )
+      );
+    }
     setContent(divArray);
   }
 
@@ -84,9 +98,9 @@ function PersonRow(props, ref) {
           id="x_button_person_stripe"
           src="https://res.cloudinary.com/dodwfb1ar/image/upload/v1608404156/utils/delete_asset_button_xznfax.png"
           style={{
-            width: props.xButtonDimmension,
-            height: props.xButtonDimmension,
-            marginStart: props.xMarginStart,
+            width: props.xButtonDimmension ? props.xButtonDimmension : 0,
+            height: props.xButtonDimmension ? props.xButtonDimmension : 0,
+            marginStart: props.xMarginStart ? props.xMarginStart : 0,
             visibility: isLastVisibility,
           }}
           key={"x_button_person_stripe_" + index}
@@ -128,6 +142,7 @@ function PersonRow(props, ref) {
         marginLeft: props.marginLeft,
         marginRight: props.marginRight,
         marginTop: props.marginTop,
+        marginBottom: props.marginBottom,
       }}
       key={"person_row_holder"}
     >

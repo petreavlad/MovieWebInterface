@@ -1,15 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import "./EditableCollection.css";
 import axios from "axios";
 
-function EditableCollection(props) {
+function EditableCollection(props, ref) {
   const [content, setContent] = useState([]);
   var items;
   const [items_to_be_displayed, setItemsToBeDisplayed] = useState([]);
 
+  useImperativeHandle(ref, () => ({ getItemsByFilter }));
+
+  function getItemsByFilter(filter) {
+    setContent(null);
+    axios({
+      method: "get",
+      url: "https://movie-test-app-2223.herokuapp.com/content/get",
+      headers: {
+        token: localStorage.getItem("user_token"),
+        filter: filter ? getSearchFilter(filter) : "",
+      },
+    }).then((response) => {
+      console.log(response);
+      if (response.data.response.length === 0) {
+        setItemsToBeDisplayed([getNoSuchMovie()]);
+      } else {
+        setItemsToBeDisplayed(getCardsForItem(response.data.response));
+      }
+      items = response.data.response;
+      setContent(response.data.response);
+    });
+  }
+
   useEffect(() => {
     getAllItems(localStorage.getItem("user_token"));
   }, []);
+
+  function getNoSuchMovie() {
+    return (
+      <div id="editable_collection_no_items">
+        No such movie found in our database.
+      </div>
+    );
+  }
 
   function getCardsForItem(items) {
     let finalArray = [];
@@ -111,12 +148,30 @@ function EditableCollection(props) {
     axios({
       method: "get",
       url: "https://movie-test-app-2223.herokuapp.com/content/get",
-      headers: { token: token },
+      headers: {
+        token: token,
+        filter: props.searchValue ? getSearchFilterprops() : "",
+      },
     }).then((response) => {
-      items_to_be_displayed.push(getCardsForItem(response.data.response));
+      if (response.data.response.length === 0) {
+        items_to_be_displayed.push([getNoSuchMovie()]);
+      } else {
+        items_to_be_displayed.push(getCardsForItem(response.data.response));
+      }
       items = response.data.response;
       setContent(response.data.response);
     });
+  }
+
+  function getSearchFilterprops() {
+    console.log(props.searchValue);
+    return (
+      '{"title": { "$regex": "' + props.searchValue + '", "$options": "i" }}'
+    );
+  }
+
+  function getSearchFilter(filter) {
+    return '{"title": { "$regex": "' + filter + '", "$options": "i" }}';
   }
 
   return (
@@ -128,4 +183,4 @@ function EditableCollection(props) {
   );
 }
 
-export default EditableCollection;
+export default forwardRef(EditableCollection);

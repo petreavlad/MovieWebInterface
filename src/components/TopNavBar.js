@@ -79,6 +79,12 @@ function TopNavBar(props) {
     return array;
   }
 
+  function onKeyDown(event, text) {
+    if (props.onEnterPressed && event.key === "Enter") {
+      props.onEnterPressed(text);
+    }
+  }
+
   return (
     <div key="top_nav_bar">
       <div key="nav_bar_holder" className="nav_bar_holder">
@@ -95,6 +101,7 @@ function TopNavBar(props) {
           margin_left="2.5vh"
           padding_top="1vh"
           placeholder="Search"
+          onKeyDown={onKeyDown}
           height="5vh"
         ></EditText>
         <img

@@ -9,3 +9,11 @@
 #cardHolder:hover {
   transform: scale(1.15);
 }
+
+#editable_collection_no_items {
+  font-size: 30px;
+  margin-top: 30vh;
+  width: 100%;
+  text-align: center;
+  color: white;
+}

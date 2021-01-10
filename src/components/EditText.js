@@ -25,6 +25,12 @@ function EditText(props, ref) {
     if (props.text) setActualText(props.text);
   }, []);
 
+  function onEditKeyDown(event) {
+    if (props.onKeyDown) {
+      props.onKeyDown(event, actual_text);
+    }
+  }
+
   function onNewText(event) {
     if (event.nativeEvent.inputType === "insertLineBreak") {
       return;
@@ -114,6 +120,7 @@ function EditText(props, ref) {
         value={props.isPassword ? hidden_text : actual_text}
         spellCheck="false"
         onChange={onNewText}
+        onKeyDown={onEditKeyDown}
         onSelect={onSelect}
       >
         {}

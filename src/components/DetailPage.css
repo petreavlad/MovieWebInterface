@@ -11,6 +11,7 @@
   width: auto;
   height: auto;
   margin-top: 10vh;
+  margin-bottom: 20px;
   background-color: #e23e57;
   border-radius: 10vh;
 }
@@ -18,22 +19,22 @@
 #youtube_video {
   border-radius: 50px;
   margin-top: 5vh;
-  margin-left: 10vh;
-  margin-right: 10vh;
+  margin-left: 8vh;
+  margin-right: 8vh;
 }
 
 #detail_page_title {
   font-size: 30px;
   text-align: left;
-  padding-left: 11vh;
+  margin-left: 10vh;
   margin-top: 2vh;
   color: white;
 }
 
 #detail_page_description {
-  width: 1000px;
-  margin-left: 11vh;
-  margin-right: 5vh;
+  width: 700px;
+  margin-left: 10vh;
+  margin-bottom: 20px;
   text-align: left;
   font-size: 25px;
   margin-top: 20px;
@@ -42,7 +43,29 @@
 
 #detail_page_subtitle_text {
   text-align: left;
-  margin-left: 11vh;
+  margin-left: 10vh;
   font-size: 20px;
   color: #dbdbdb;
+}
+
+#detail_page_stars_title {
+  font-size: 23px;
+  text-align: left;
+  margin-top: 30px;
+  margin-left: 10vh;
+  color: white;
+}
+
+#detail_page_rating_holder {
+  text-align: left;
+  margin-top: 10px;
+  margin-left: 10vh;
+  display: flex;
+}
+
+#detail_page_rating_text {
+  width: auto;
+  font-size: 15px;
+  color: white;
+  margin-left: 20px;
 }
