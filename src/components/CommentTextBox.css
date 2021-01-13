@@ -1,0 +1,15 @@
+#comment_loading_background {
+  background-color: #00000036;
+  height: 308px;
+  width: 622px;
+  border-radius: 2vh;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#comment_loading_spinner {
+  margin-top: 60px;
+}

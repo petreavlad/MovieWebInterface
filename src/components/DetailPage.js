@@ -2,8 +2,24 @@ import React, { useEffect } from "react";
 import "./DetailPage.css";
 import PersonRow from "../components/PersonRow";
 import ReactStarsRating from "react-awesome-stars-rating";
+import CommentBox from "./CommentTextBox";
 
 function DetailPage(props) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
   useEffect(() => {
     window.addEventListener("popstate", function (event) {
       if (props.onBackPress) props.onBackPress();
@@ -66,6 +82,44 @@ function DetailPage(props) {
     ) : null;
   }
 
+  function getMessages() {
+    let arrayOfMessageDiv = [];
+
+    for (let message of props.item.messages) {
+      arrayOfMessageDiv.push(getOneMessage(message));
+    }
+
+    return props.item.messages.length > 0 ? (
+      <div id="detail_page_messages_holder">
+        <div id="detail_page_message_title">
+          <b>Comments ({props.item.messages.length})</b>
+        </div>
+        {arrayOfMessageDiv}
+      </div>
+    ) : null;
+  }
+
+  function getOneMessage(item) {
+    let date = new Date(parseInt(item.timestamp));
+    return (
+      <div id="detail_page_message_holder">
+        <div id="detail_page_message_user_holder">
+          <img id="detail_page_message_image" src={item.user_image}></img>
+          <div id="detail_page_message_user">
+            <u>
+              <b>{item.user}</b>
+            </u>
+          </div>
+        </div>
+        <div id="detail_page_message_text">{item.message}</div>
+        <div id="detail_page_message_timestamp">
+          {date.getDate()} {months[date.getMonth()]} {date.getFullYear()}{" "}
+          {date.getHours()}:{date.getMinutes()}:{date.getSeconds()}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div id="detail_page_holder">
       <div id="detail_page_background">
@@ -92,6 +146,8 @@ function DetailPage(props) {
         <div id="detail_page_description">{props.item.description}</div>
         {getStars()}
         {getCreators()}
+        {getMessages()}
+        <CommentBox></CommentBox>
       </div>
     </div>
   );
