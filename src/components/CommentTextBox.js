@@ -1,11 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  forwardRef,
+  useRef,
+  useImperativeHandle,
+} from "react";
 import EditText from "./EditText";
 import "./CommentTextBox.css";
 
-function CommentTextBox(props) {
+function CommentTextBox(props, ref) {
+  var textbox = useRef();
   const [spinnerVisibilitty, setSpinnerVisibility] = useState("hidden");
 
   useEffect(() => {}, []);
+  useImperativeHandle(ref, () => ({ hideSpinner, setText }));
+
+  function setText(text) {
+    textbox.current.setText(text);
+  }
+
+  function hideSpinner() {
+    setSpinnerVisibility("hidden");
+  }
 
   function createSpinner() {
     return (
@@ -23,6 +39,7 @@ function CommentTextBox(props) {
 
   function onKeyDown(event, text) {
     if (event.key === "Enter") {
+      if (props.onEnterPressed) props.onEnterPressed(text);
       setSpinnerVisibility("visible");
       event.target.blur();
     }
@@ -39,10 +56,11 @@ function CommentTextBox(props) {
         whiteSpace="none"
         textAlign="start"
         placeholder="Add Comment"
+        ref={textbox}
         onKeyDown={onKeyDown}
       ></EditText>
     </div>
   );
 }
 
-export default CommentTextBox;
+export default forwardRef(CommentTextBox);

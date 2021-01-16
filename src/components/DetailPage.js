@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./DetailPage.css";
 import PersonRow from "../components/PersonRow";
 import ReactStarsRating from "react-awesome-stars-rating";
 import CommentBox from "./CommentTextBox";
+import axios from "axios";
 
 function DetailPage(props) {
+  var textBoxRef = useRef();
   const months = [
     "Jan",
     "Feb",
@@ -19,12 +21,25 @@ function DetailPage(props) {
     "Nov",
     "Dec",
   ];
+  const SHOW_MORE_AFTER = 5;
+  var currentShownMessages = SHOW_MORE_AFTER;
+
+  const [messages, setMessages] = useState(null);
+  const [messageInfo, setMessagesInfo] = useState([]);
 
   useEffect(() => {
     window.addEventListener("popstate", function (event) {
       if (props.onBackPress) props.onBackPress();
     });
+
+    if (props.item.messages && props.item.messages.length > 0) {
+      setMessagesInfo(props.item.messages.reverse());
+    }
   }, []);
+
+  useEffect(() => {
+    setMessages(getMessages());
+  }, [messageInfo]);
 
   function getSubtitle() {
     var subtitle = "";
@@ -85,24 +100,81 @@ function DetailPage(props) {
   function getMessages() {
     let arrayOfMessageDiv = [];
 
-    for (let message of props.item.messages) {
-      arrayOfMessageDiv.push(getOneMessage(message));
+    for (let i = 0; i < currentShownMessages; i++) {
+      if (messageInfo.length <= i) {
+        break;
+      }
+      arrayOfMessageDiv.push(getOneMessage(messageInfo[i]));
     }
 
-    return props.item.messages.length > 0 ? (
+    arrayOfMessageDiv.reverse();
+
+    if (currentShownMessages < messageInfo.length) {
+      arrayOfMessageDiv.unshift(getShowMoreMessages());
+    }
+
+    return messageInfo.length > 0 ? (
       <div id="detail_page_messages_holder">
         <div id="detail_page_message_title">
-          <b>Comments ({props.item.messages.length})</b>
+          <b>Comments ({messageInfo.length})</b>
         </div>
         {arrayOfMessageDiv}
       </div>
     ) : null;
   }
 
+  function onShowMoreClicked() {
+    currentShownMessages += SHOW_MORE_AFTER;
+    setMessages(getMessages());
+  }
+
+  function getShowMoreMessages() {
+    return (
+      <div onClick={onShowMoreClicked} id="detail_page_show_more_holder">
+        <div id="detail_page_show_more_text">
+          <b>
+            <u>Show older comments</u>
+          </b>
+        </div>
+      </div>
+    );
+  }
+
+  function onDeleteMessage(event) {
+    var messageId = event.target.getAttribute("data-key");
+    axios({
+      method: "delete",
+      url: "https://movie-test-app-2223.herokuapp.com/content/message",
+      headers: { token: localStorage.getItem("user_token") },
+      params: { content_id: props.item.content_id, message_id: messageId },
+    })
+      .then(function (response) {
+        textBoxRef.current.hideSpinner();
+        textBoxRef.current.setText("");
+        setMessagesInfo(response.data.messages.reverse());
+      })
+      .catch(function (error) {
+        console.log(error);
+        textBoxRef.current.hideSpinner();
+      });
+  }
+
   function getOneMessage(item) {
     let date = new Date(parseInt(item.timestamp));
     return (
       <div id="detail_page_message_holder">
+        <img
+          id="detail_page_delete_button"
+          src="https://res.cloudinary.com/dodwfb1ar/image/upload/v1610811944/utils/delete_asset_button_reverted_axsax8.png"
+          onClick={onDeleteMessage}
+          data-key={item.message_id}
+          style={{
+            visibility:
+              localStorage.getItem("user_username") === item.user
+                ? "visible"
+                : "hidden",
+          }}
+        ></img>
         <div id="detail_page_message_user_holder">
           <img id="detail_page_message_image" src={item.user_image}></img>
           <div id="detail_page_message_user">
@@ -118,6 +190,27 @@ function DetailPage(props) {
         </div>
       </div>
     );
+  }
+
+  function newComment(text) {
+    axios({
+      method: "post",
+      url: "https://movie-test-app-2223.herokuapp.com/content/message",
+      data: {
+        message: text,
+      },
+      headers: { token: localStorage.getItem("user_token") },
+      params: { content_id: props.item.content_id },
+    })
+      .then(function (response) {
+        textBoxRef.current.hideSpinner();
+        textBoxRef.current.setText("");
+        setMessagesInfo(response.data.messages.reverse());
+      })
+      .catch(function (error) {
+        console.log(error);
+        textBoxRef.current.hideSpinner();
+      });
   }
 
   return (
@@ -146,8 +239,8 @@ function DetailPage(props) {
         <div id="detail_page_description">{props.item.description}</div>
         {getStars()}
         {getCreators()}
-        {getMessages()}
-        <CommentBox></CommentBox>
+        {messages}
+        <CommentBox ref={textBoxRef} onEnterPressed={newComment}></CommentBox>
       </div>
     </div>
   );
