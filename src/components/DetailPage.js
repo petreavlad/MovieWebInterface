@@ -225,9 +225,7 @@ function DetailPage(props) {
       headers: { token: localStorage.getItem("user_token") },
       params: { content_id: props.item.content_id },
     })
-      .then(function (response) {
-        setRating(response.data.rating);
-      })
+      .then(function (response) {})
       .catch(function (error) {
         console.log(error);
       });
@@ -258,7 +256,7 @@ function DetailPage(props) {
             value={parseFloat(rating)}
           />
           <div id="detail_page_rating_text">
-            <b>{"(" + parseFloat(rating) + ")"}</b>
+            <b>{"(Average:" + parseFloat(rating) + ")"}</b>
           </div>
         </div>
         <div id="detail_page_description">{props.item.description}</div>
