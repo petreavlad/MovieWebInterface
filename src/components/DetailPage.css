@@ -65,9 +65,10 @@
 
 #detail_page_rating_text {
   width: auto;
-  font-size: 15px;
+  font-size: 20px;
   color: white;
   margin-left: 20px;
+  cursor: default;
 }
 
 #detail_page_messages_holder {

@@ -7,6 +7,7 @@ import axios from "axios";
 
 function DetailPage(props) {
   var textBoxRef = useRef();
+
   const months = [
     "Jan",
     "Feb",
@@ -26,12 +27,13 @@ function DetailPage(props) {
 
   const [messages, setMessages] = useState(null);
   const [messageInfo, setMessagesInfo] = useState([]);
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     window.addEventListener("popstate", function (event) {
       if (props.onBackPress) props.onBackPress();
     });
-
+    setRating(props.item.rating);
     if (props.item.messages && props.item.messages.length > 0) {
       setMessagesInfo(props.item.messages.reverse());
     }
@@ -213,6 +215,24 @@ function DetailPage(props) {
       });
   }
 
+  function addNewRating(event) {
+    axios({
+      method: "post",
+      url: "https://movie-test-app-2223.herokuapp.com/content/rating",
+      data: {
+        value: event + "",
+      },
+      headers: { token: localStorage.getItem("user_token") },
+      params: { content_id: props.item.content_id },
+    })
+      .then(function (response) {
+        setRating(response.data.rating);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   return (
     <div id="detail_page_holder">
       <div id="detail_page_background">
@@ -231,9 +251,14 @@ function DetailPage(props) {
         </div>
         <div id="detail_page_subtitle_text">{getSubtitle()}</div>
         <div id="detail_page_rating_holder">
-          <ReactStarsRating count="10" value={parseFloat(props.item.rating)} />
+          <ReactStarsRating
+            isArrowSubmit={true}
+            count="10"
+            onChange={addNewRating}
+            value={parseFloat(rating)}
+          />
           <div id="detail_page_rating_text">
-            {parseFloat(props.item.rating)}
+            <b>{"(" + parseFloat(rating) + ")"}</b>
           </div>
         </div>
         <div id="detail_page_description">{props.item.description}</div>
