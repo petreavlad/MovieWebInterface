@@ -103,6 +103,7 @@ function EditText(props, ref) {
         marginRight: props.margin_right,
         marginTop: props.margin_top,
         marginBottom: props.margin_bottom,
+        visibility: props.visibility ? props.visibility : "",
       }}
     >
       <textarea

@@ -269,6 +269,7 @@ function ItemEditableDetails(props) {
           height="4vh"
           width="100vh"
           margin_left="2vh"
+          visibility={props.itemDetails ? "hidden" : "visible"}
           ref={pageReferences.ratingEditText}
           text={content.rating ? content.rating : ""}
           onChange={(text) => {
