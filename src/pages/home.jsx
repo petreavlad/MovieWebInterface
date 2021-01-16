@@ -21,6 +21,7 @@ function HomePage() {
   const [pageNumber, setPageNumber] = useState(0);
   var galleryRef = useRef();
   var searchRef = useRef();
+  var galleryDescription = useRef();
   var galleryContent;
 
   useEffect(() => {
@@ -52,6 +53,7 @@ function HomePage() {
       })
       .then((response) => {
         galleryContent = response.data.response;
+        galleryDescription.current.setCurrentItem(galleryContent[0]);
         var imageArray = [];
 
         for (let i = 0; i < galleryContent.length; i++) {
@@ -68,7 +70,7 @@ function HomePage() {
 
   function startGalleryTimer() {
     if (galleryRef && galleryRef.current)
-      galleryRef.current.startScrolling(2000);
+      galleryRef.current.startScrolling(4000);
   }
 
   function onNavClicked(key) {
@@ -121,6 +123,15 @@ function HomePage() {
             dot_between_margin="10px"
             dot_unselected_color="#E23E57"
             dot_selected_color="#88304E"
+            newItemSelected={async (position) => {
+              if (position < galleryContent.length) {
+                galleryDescription.current.setCurrentItem(
+                  galleryContent[position]
+                );
+              } else {
+                galleryDescription.current.setCurrentItem(galleryContent[0]);
+              }
+            }}
           ></Galery>
           <GalleryDetails
             height="350px"
@@ -128,6 +139,7 @@ function HomePage() {
             marginTop="70px"
             marginLeft="800px"
             backgroundColor="#E23E57"
+            ref={galleryDescription}
           ></GalleryDetails>
         </div>
         <ContentStripe

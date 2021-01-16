@@ -2,3 +2,24 @@
   border-radius: 30px;
   float: left;
 }
+
+#gallery_details_title {
+  color: white;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 25px;
+}
+
+#gallery_details_subtitle {
+  color: rgb(228, 228, 228);
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 15px;
+}
+
+#gallery_details_description {
+  color: white;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-size: 25px;
+}

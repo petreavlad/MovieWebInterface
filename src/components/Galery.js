@@ -92,8 +92,12 @@ function Galery(props, ref) {
 
     setDots(getDotArray(size - 1, selected_position));
 
-    if (parentView && parentView.current)
+    if (parentView && parentView.current) {
       parentView.current.scrollLeft = width * selected_position;
+      if (props.newItemSelected) {
+        props.newItemSelected(selected_position);
+      }
+    }
 
     resetAutoScrollInterva = setTimeout(restartAutomatScroling, 3000);
   }
@@ -171,6 +175,9 @@ function Galery(props, ref) {
 
     if (parentView && parentView.current) {
       parentView.current.scrollLeft = width * selected_position;
+      if (props.newItemSelected) {
+        props.newItemSelected(selected_position);
+      }
     }
   }
 
@@ -184,8 +191,12 @@ function Galery(props, ref) {
 
   function scroll(position) {
     selected_position = position;
-    if (parentView && parentView.current)
+    if (parentView && parentView.current) {
       parentView.current.scrollLeft = width * position;
+      if (props.newItemSelected) {
+        props.newItemSelected(selected_position);
+      }
+    }
   }
 
   return (
