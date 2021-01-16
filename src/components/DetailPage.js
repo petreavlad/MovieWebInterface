@@ -28,12 +28,14 @@ function DetailPage(props) {
   const [messages, setMessages] = useState(null);
   const [messageInfo, setMessagesInfo] = useState([]);
   const [rating, setRating] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
     window.addEventListener("popstate", function (event) {
       if (props.onBackPress) props.onBackPress();
     });
     setRating(props.item.rating);
+    setAverageRating(props.item.rating);
     if (props.item.messages && props.item.messages.length > 0) {
       setMessagesInfo(props.item.messages.reverse());
     }
@@ -225,7 +227,10 @@ function DetailPage(props) {
       headers: { token: localStorage.getItem("user_token") },
       params: { content_id: props.item.content_id },
     })
-      .then(function (response) {})
+      .then(function (response) {
+        setAverageRating(response.data.rating);
+        setRating(event);
+      })
       .catch(function (error) {
         console.log(error);
       });
@@ -256,7 +261,7 @@ function DetailPage(props) {
             value={parseFloat(rating)}
           />
           <div id="detail_page_rating_text">
-            <b>{"(Average:" + parseFloat(rating) + ")"}</b>
+            <b>{"(Average:" + parseFloat(averageRating) + ")"}</b>
           </div>
         </div>
         <div id="detail_page_description">{props.item.description}</div>
