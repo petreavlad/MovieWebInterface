@@ -97,6 +97,12 @@ function EditableCollection(props, ref) {
       }
     }
 
+    finalArray.push(
+      <div>
+        <div id="last_view"></div>
+      </div>
+    );
+
     return finalArray;
   }
 
@@ -124,6 +130,7 @@ function EditableCollection(props, ref) {
           height: props.height,
           marginLeft: props.inBetweenMargin,
           marginTop: props.rowMrginTop,
+          marginBottom: props.rowMrginTop,
           backgroundColor: props.borderColor,
           borderRadius: props.cardRadius,
         }}
@@ -176,7 +183,7 @@ function EditableCollection(props, ref) {
 
   return (
     <div>
-      <div>
+      <div id="collection_holder">
         {items_to_be_displayed.length > 0 ? items_to_be_displayed : null}
       </div>
     </div>

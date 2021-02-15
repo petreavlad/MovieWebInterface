@@ -45,3 +45,7 @@
 #content_stripe_left_arrow:hover {
   content: url("https://res.cloudinary.com/dodwfb1ar/image/upload/v1609541368/utils/Stripe_show_left_5_b5e4he.png");
 }
+
+#content_stripe_holder::-webkit-scrollbar {
+  display: none;
+}

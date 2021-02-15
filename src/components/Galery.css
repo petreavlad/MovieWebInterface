@@ -6,7 +6,7 @@
   position: absolute;
 }
 
-::-webkit-scrollbar {
+.scrollable_view::-webkit-scrollbar {
   display: none;
 }
 

@@ -110,7 +110,7 @@ function HomePage() {
 
   function getHomePage() {
     return (
-      <div>
+      <div id="home_holder_div">
         <div id="home_gallery_holder">
           <Galery
             ref={galleryRef}
@@ -279,7 +279,7 @@ function HomePage() {
   }
 
   return (
-    <div>
+    <div id="website_holder">
       <div
         id="dark_background"
         style={{ visibility: darkBackgroundVisibility }}
@@ -288,7 +288,7 @@ function HomePage() {
         onEnterPressed={onSearcTriggered}
         onMenuItemClicked={onNavClicked}
       ></TopNavBar>
-      <div>{getPage()}</div>
+      <div id="page_holder">{getPage()}</div>
     </div>
   );
 }

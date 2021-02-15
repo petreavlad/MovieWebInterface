@@ -173,10 +173,10 @@ function Registration() {
         </div>
         <EditText
           margin_top="3vh"
-          margin_right="2.5vh"
+          margin_right="3vh"
           padding_top="2vh"
           height="5.5vh"
-          margin_left="2vh"
+          margin_left="1vh"
           placeholder="Email"
           onChange={(email) => {
             register_data.email = email;
@@ -184,10 +184,10 @@ function Registration() {
         ></EditText>
         <EditText
           margin_top="1vh"
-          margin_right="2.5vh"
+          margin_right="3vh"
           padding_top="2vh"
           height="5.5vh"
-          margin_left="2vh"
+          margin_left="1vh"
           placeholder="Username"
           onChange={(username) => {
             register_data.username = username;
@@ -195,10 +195,10 @@ function Registration() {
         ></EditText>
         <EditText
           margin_top="1vh"
-          margin_right="2.5vh"
+          margin_right="3vh"
           padding_top="2vh"
           height="5.5vh"
-          margin_left="2vh"
+          margin_left="1vh"
           isPassword="true"
           placeholder="Password"
           onChange={(password) => {
@@ -207,10 +207,10 @@ function Registration() {
         ></EditText>
         <EditText
           margin_top="1vh"
-          margin_right="2.5vh"
+          margin_right="3vh"
           padding_top="2vh"
           height="5.5vh"
-          margin_left="2vh"
+          margin_left="1vh"
           isPassword="true"
           placeholder="Re-enter password"
           onChange={(password) => {

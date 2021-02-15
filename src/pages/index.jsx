@@ -115,12 +115,6 @@ function MainPage() {
             Login
           </button>
         </div>
-
-        <div className="forgot_password_text">
-          <Link to="/resetpassword" className="register_link">
-            <u>Forgot password? Click here</u>
-          </Link>
-        </div>
       </div>
       <ErrorDialog
         title="Something went wrong"
